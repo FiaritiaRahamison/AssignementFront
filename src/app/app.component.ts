@@ -19,37 +19,37 @@ import { AssignmentsService } from './shared/assignments.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Application de gestion des assignments';
+  // title = 'Application de gestion des assignments';
 
-  constructor(private authService:AuthService,
-              private assignmentsService: AssignmentsService,
-              private router:Router) {}
+  // constructor(private authService:AuthService,
+  //             private assignmentsService: AssignmentsService,
+  //             private router:Router) {}
 
-  login() {
-    // on utilise le service d'autentification
-    // pour se connecter ou se déconnecter
-    if(!this.authService.loggedIn) {
-      this.authService.logIn();
-    } else {
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(['/home']);
-    }
-  }
+  // login() {
+  //   // on utilise le service d'autentification
+  //   // pour se connecter ou se déconnecter
+  //   if(!this.authService.loggedIn) {
+  //     this.authService.logIn();
+  //   } else {
+  //     this.authService.logOut();
+  //     // on navigue vers la page d'accueil
+  //     this.router.navigate(['/home']);
+  //   }
+  // }
 
-  genererDonneesDeTest() {
-    // on utilise le service
-    /* VERSION NAIVE
-    this.assignmentsService.peuplerBD();
-    */
+  // genererDonneesDeTest() {
+  //   // on utilise le service
+  //   /* VERSION NAIVE
+  //   this.assignmentsService.peuplerBD();
+  //   */
 
-    // VERSION AVEC Observable
-    this.assignmentsService.peuplerBDavecForkJoin()
-    .subscribe(() => {
-      console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
-      window.location.reload();
-      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-      // this.router.navigate(['/home'], {replaceUrl:true});
-    });
-  }
+  //   // VERSION AVEC Observable
+  //   this.assignmentsService.peuplerBDavecForkJoin()
+  //   .subscribe(() => {
+  //     console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
+  //     window.location.reload();
+  //     // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+  //     // this.router.navigate(['/home'], {replaceUrl:true});
+  //   });
+  // }
 }
