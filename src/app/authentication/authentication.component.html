@@ -1,22 +1,40 @@
-<mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-      <form>
-        <p>
-          <mat-form-field>
-            <input type="text" matInput placeholder="Username" formControlName="username">
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field>
-            <input type="password" matInput placeholder="Password" formControlName="password">
-          </mat-form-field>
-        </p>
+<div class="example-card">
 
-        <div class="button">
-          <button type="submit" mat-button>Login</button>
-        </div>
+  <mat-card class="custom-card">
+  </mat-card>
 
-      </form>
-    </mat-card-content>
-</mat-card>
+  <mat-card class="custom-card">
+
+    <mat-card-header>
+      <mat-card-title>LOGIN</mat-card-title>
+    </mat-card-header>
+
+    <form (submit)="onSubmit($event)" id="loginForm" ngForm>
+      <mat-card-content class="card-content">
+
+        <mat-form-field>
+          <mat-label>Enter your username</mat-label>
+          <input matInput [(ngModel)]="username">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-fab extended color="Accent" class="connection-button" type="submit" form="loginForm">
+          <mat-icon>send</mat-icon>
+          Connection
+        </button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+
+</div>
+

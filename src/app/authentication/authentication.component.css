@@ -1,28 +1,50 @@
-:host {
+.example-card {
   display: flex;
   justify-content: center;
-  margin: 100px 0px;
+  align-items: center;
+  height: 100vh;
 }
 
-.mat-form-field {
-  width: 100%;
-  min-width: 300px;
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 25vh;
 }
 
-mat-card-title,
-mat-card-content {
+.card-title {
+  text-align: center;
+}
+
+mat-card {
+  width: 50%;
+  height: 90%;
+}
+
+mat-card-header {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  height: 30vh;
 }
 
-.error {
-  padding: 16px;
-  width: 300px;
-  color: white;
-  background-color: red;
-}
-
-.button {
+mat-card-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
 }
+
+mat-card:first-child {
+  background-image: url('/assets/images/background.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* .connection-button {
+  background-color: firebrick;
+} */
+
+
+
