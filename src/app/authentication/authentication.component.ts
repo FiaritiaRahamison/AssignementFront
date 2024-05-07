@@ -20,12 +20,13 @@ export class AuthenticationComponent {
 
   username = '';
   password = '';
-  errorMessage = '';
+  errorMessage!: string;
 
   onSubmit(event: any) {
     if((this.username == '') || (this.password == '')) {
       this.errorMessage = 'The username and the password are required';
     } else {
+      this.errorMessage = '';
       console.log("Hey ");
     }
   }

@@ -12,14 +12,20 @@
     <form (submit)="onSubmit($event)" id="loginForm" ngForm>
       <mat-card-content class="card-content">
 
+        @if(errorMessage && errorMessage != "") {
+          <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+          </div>
+        }
+
         <mat-form-field>
           <mat-label>Enter your username</mat-label>
-          <input matInput [(ngModel)]="username">
+          <input matInput [(ngModel)]="username" name="username">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password">
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
