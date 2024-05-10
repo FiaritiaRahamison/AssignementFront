@@ -37,7 +37,7 @@ mat-card-actions {
 }
 
 mat-card:first-child {
-  background-image: url('/assets/images/background.png');
+  background-image: url('/assets/images/background.jpg');
   background-size: cover;
   background-position: center;
 }

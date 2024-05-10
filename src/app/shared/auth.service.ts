@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Server } from '../environment/server';
+import { Token } from '../models/token';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +11,23 @@ export class AuthService {
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private server: Server
+  ) { }
 
   // méthode pour connecter l'utilisateur
   // Typiquement, il faudrait qu'elle accepte en paramètres
   // un nom d'utilisateur et un mot de passe, que l'on vérifierait
   // auprès d'un serveur...
-  logIn() {
-    this.loggedIn = true;
+  logIn(login: string, password: string): Observable<Token> {
+    const urlLogin = `${this.server.getUrl()}/api/users/login`;
+    const param = {
+      login,
+      password
+    }
+
+    return this.http.post<Token>(urlLogin, param);
   }
 
   // méthode pour déconnecter l'utilisateur

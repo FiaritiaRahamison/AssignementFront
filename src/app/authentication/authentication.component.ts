@@ -5,6 +5,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -22,12 +24,26 @@ export class AuthenticationComponent {
   password = '';
   errorMessage!: string;
 
-  onSubmit(event: any) {
+  constructor(
+    private authService: AuthService,
+    private router : Router
+  ){}
+
+  onSubmit() {
     if((this.username == '') || (this.password == '')) {
       this.errorMessage = 'The username and the password are required';
     } else {
-      this.errorMessage = '';
-      console.log("Hey ");
+      this.authService.logIn(this.username, this.password)
+      .subscribe({
+        next: data => {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          this.router.navigate(['/home']);
+        },
+        error: (e) => {
+          this.errorMessage = e?.error?.message;
+        }
+      });
     }
   }
 }
