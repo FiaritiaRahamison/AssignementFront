@@ -9,14 +9,14 @@
       <mat-card-title>LOGIN</mat-card-title>
     </mat-card-header>
 
+    @if(errorMessage && errorMessage != "") {
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    }
+
     <form (submit)="onSubmit()" id="loginForm" ngForm>
       <mat-card-content class="card-content">
-
-        @if(errorMessage && errorMessage != "") {
-          <div class="alert alert-danger" role="alert">
-            {{errorMessage}}
-          </div>
-        }
 
         <mat-form-field>
           <mat-label>Enter your username</mat-label>
@@ -26,16 +26,15 @@
         <mat-form-field>
           <mat-label>Enter your password</mat-label>
           <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <button  type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-fab extended color="Accent" class="connection-button" type="submit" form="loginForm">
-          <mat-icon>send</mat-icon>
-          Connection
+        <button mat-fab extended color="Accent" class="connection-button" type="submit" form="loginForm" [disabled]="authLoading">
+          <span *ngIf="!authLoading"><mat-icon>send</mat-icon> Connection</span>  <mat-spinner *ngIf="authLoading" diameter="30"></mat-spinner>
         </button>
       </mat-card-actions>
     </form>

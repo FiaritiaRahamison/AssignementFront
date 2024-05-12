@@ -17,8 +17,8 @@
 }
 
 mat-card {
-  width: 50%;
-  height: 90%;
+  width: 30%;
+  height: 70%;
 }
 
 mat-card-header {
@@ -48,6 +48,8 @@ mat-card:first-child {
   border: 1px solid #f5c6cb;
   border-radius: 4px;
   padding: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 /* .connection-button {
