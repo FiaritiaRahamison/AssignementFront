@@ -9,5 +9,5 @@ interface User {
   name: string,
   firstname: string,
   login: string,
-  role: Int16Array
+  role: Number
 }

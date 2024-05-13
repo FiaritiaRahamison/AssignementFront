@@ -44,7 +44,8 @@ export class AuthenticationComponent {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           this.authLoading = false;
-          this.router.navigate(['/home']);
+          if(data.user.role == 1) this.router.navigate(['/student/assignments']);
+          if(data.user.role == 2) this.router.navigate(['/home']);
         },
         error: (e) => {
           this.errorMessage = e?.error?.message;

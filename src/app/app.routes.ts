@@ -5,6 +5,7 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { AssignmentListComponent } from './assignments/assignment-list/assignment-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: "add", component: AddAssignmentComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},
   { path: "login", component: AuthenticationComponent},
+  { path: "student/assignments", component: AssignmentListComponent},
   {
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,
