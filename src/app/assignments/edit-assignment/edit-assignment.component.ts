@@ -38,15 +38,15 @@ export class EditAssignmentComponent implements OnInit {
   ngOnInit() {
     // on récupère l'id dans l'url
     const id = +this.route.snapshot.params['id'];
-    this.assignmentsService.getAssignment(id)
-    .subscribe((assignment) => {
-      this.assignment = assignment;
-      // on met à jour les champs du formulaire
-      if (assignment !== undefined) {
-        this.nomAssignment = assignment.nom;
-        this.dateDeRendu = assignment.dateDeRendu;
-      }
-    });
+    // this.assignmentsService.getAssignment(id)
+    // .subscribe((assignment) => {
+    //   this.assignment = assignment;
+    //   // on met à jour les champs du formulaire
+    //   if (assignment !== undefined) {
+    //     this.nomAssignment = assignment.nom;
+    //     this.dateDeRendu = assignment.dateDeRendu;
+    //   }
+    // });
   }
 
   onSaveAssignment() {
@@ -54,15 +54,15 @@ export class EditAssignmentComponent implements OnInit {
     if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
 
     // on récupère les valeurs dans le formulaire
-    this.assignment.nom = this.nomAssignment;
-    this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignmentsService
-      .updateAssignment(this.assignment)
-      .subscribe((message) => {
-        console.log(message);
+    // this.assignment.nom = this.nomAssignment;
+    // this.assignment.dateDeRendu = this.dateDeRendu;
+    // this.assignmentsService
+    //   .updateAssignment(this.assignment)
+    //   .subscribe((message) => {
+    //     console.log(message);
 
-        // navigation vers la home page
-        this.router.navigate(['/home']);
-      });
+    //     // navigation vers la home page
+    //     this.router.navigate(['/home']);
+    //   });
   }
 }

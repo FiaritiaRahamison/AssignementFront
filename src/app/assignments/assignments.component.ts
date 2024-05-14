@@ -117,37 +117,37 @@ export class AssignmentsComponent implements OnInit {
 
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
-    this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
-      .subscribe((data) => {
-        // les données arrivent ici au bout d'un certain temps
-        console.log('Données arrivées');
-        this.assignments = data.docs;
-        this.totalDocs = data.totalDocs;
-        this.totalPages = data.totalPages;
-        this.nextPage = data.nextPage;
-        this.prevPage = data.prevPage;
-        this.hasNextPage = data.hasNextPage;
-        this.hasPrevPage = data.hasPrevPage;
-      });
+    // this.assignmentsService
+    //   .getAssignmentsPagines(this.page, this.limit)
+    //   .subscribe((data) => {
+    //     // les données arrivent ici au bout d'un certain temps
+    //     console.log('Données arrivées');
+    //     this.assignments = data.docs;
+    //     this.totalDocs = data.totalDocs;
+    //     this.totalPages = data.totalPages;
+    //     this.nextPage = data.nextPage;
+    //     this.prevPage = data.prevPage;
+    //     this.hasNextPage = data.hasNextPage;
+    //     this.hasPrevPage = data.hasPrevPage;
+    //   });
     console.log('Requête envoyée');
   }
 
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
-    this.assignmentsService
-      .getAssignmentsPagines(this.page, this.limit)
-      .subscribe((data) => {
-        // les données arrivent ici au bout d'un certain temps
-        console.log('Données arrivées');
-        this.assignments = [...this.assignments, ...data.docs];
-        this.totalDocs = data.totalDocs;
-        this.totalPages = data.totalPages;
-        this.nextPage = data.nextPage;
-        this.prevPage = data.prevPage;
-        this.hasNextPage = data.hasNextPage;
-        this.hasPrevPage = data.hasPrevPage;
-      });
+    // this.assignmentsService
+    //   .getAssignmentsPagines(this.page, this.limit)
+    //   .subscribe((data) => {
+    //     // les données arrivent ici au bout d'un certain temps
+    //     console.log('Données arrivées');
+    //     this.assignments = [...this.assignments, ...data.docs];
+    //     this.totalDocs = data.totalDocs;
+    //     this.totalPages = data.totalPages;
+    //     this.nextPage = data.nextPage;
+    //     this.prevPage = data.prevPage;
+    //     this.hasNextPage = data.hasNextPage;
+    //     this.hasPrevPage = data.hasPrevPage;
+    //   });
     console.log('Requête envoyée');
   }
 

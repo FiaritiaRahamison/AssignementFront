@@ -1,3 +1,8 @@
-mat-grid-tile {
-  border: 1px solid #ccc;
+.container {
+  display: flex;
+}
+.column {
+  flex: 1; /* Ajustez cette valeur pour contrôler la largeur des colonnes */
+  padding: 10px;
+  box-sizing: border-box;
 }

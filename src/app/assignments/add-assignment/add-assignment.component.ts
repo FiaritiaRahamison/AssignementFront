@@ -39,20 +39,20 @@ export class AddAssignmentComponent {
     let nouvelAssignment = new Assignment();
     // on genere un id aléatoire (plus tard ce sera fait coté serveur par
     // une base de données)
-    nouvelAssignment.nom = this.nomAssignment;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
+    // nouvelAssignment.nom = this.nomAssignment;
+    // nouvelAssignment.dateDeRendu = this.dateDeRendu;
+    // nouvelAssignment.rendu = false;
 
-    // on utilise le service pour directement ajouter
-    // le nouvel assignment dans le tableau
-    this.assignmentsService
-      .addAssignment(nouvelAssignment)
-      .subscribe((reponse) => {
-        console.log(reponse);
-       // On navigue pour afficher la liste des assignments
-       // en utilisant le router de manière programmatique
-        this.router.navigate(['/home']);
-      });
+    // // on utilise le service pour directement ajouter
+    // // le nouvel assignment dans le tableau
+    // this.assignmentsService
+    //   .addAssignment(nouvelAssignment)
+    //   .subscribe((reponse) => {
+    //     console.log(reponse);
+    //    // On navigue pour afficher la liste des assignments
+    //    // en utilisant le router de manière programmatique
+    //     this.router.navigate(['/home']);
+    //   });
   }
 
 }

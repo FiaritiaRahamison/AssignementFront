@@ -1,13 +1,14 @@
 export interface Token {
   token: string;
-  user: User,
+  user: User;
   message?: string
 }
 
-interface User {
+export interface User {
   id: string,
   name: string,
   firstname: string,
   login: string,
-  role: Number
+  role: Number,
+  photo?: string
 }
