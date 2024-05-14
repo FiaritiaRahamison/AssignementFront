@@ -12,7 +12,16 @@
       aria-label="Select page">
     </mat-paginator>
 
-    <table mat-table [dataSource]="assignmentNotDone" class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="assignmentNotDone"
+      class="mat-elevation-z8"
+      cdkDropList
+      #listNotDone="cdkDropList"
+      [cdkDropListData]="assignmentNotDone"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listDone]"
+    >
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Title assignment</th>
@@ -50,7 +59,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag></tr>
 
     </table>
 
@@ -66,7 +75,16 @@
       aria-label="Select page">
     </mat-paginator>
 
-    <table mat-table [dataSource]="assignmentDone" class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="assignmentDone"
+      class="mat-elevation-z8"
+      cdkDropList
+      #listDone="cdkDropList"
+      [cdkDropListData]="assignmentDone"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listNotDone]"
+    >
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Title assignment</th>
@@ -94,7 +112,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1;" class="example-list" cdkDrag></tr>
 
     </table>
 

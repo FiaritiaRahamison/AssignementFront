@@ -5,12 +5,21 @@ import { User } from '../../models/token';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-assignment-list',
   standalone: true,
-  imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule],
+  imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule,
+    CdkDropList, CdkDrag
+  ],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
 })
@@ -113,5 +122,21 @@ export class AssignmentListComponent implements OnInit {
       this.hasNextPageMarked = data.hasNextPage;
       this.hasPrevPageMarked = data.hasPrevPage;
     })
+  }
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      const item = event.container.data[event.currentIndex];
+      console.log('item', item);
+    }
   }
 }
