@@ -27,9 +27,9 @@ export class AssignmentsService {
 //     return this.http.get<Assignment[]>(this.uri);
 //   }
 
-//   getAssignmentsPagines(page:number, limit:number):Observable<any> {
-//     return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit);
-//   }
+  // getAssignmentsPagines(page:number, limit:number):Observable<any> {
+  //   return this.http.get<Assignment[]>(this.uri + "?page=" + page + "&limit=" + limit);
+  // }
 
 //   // renvoie un assignment par son id, renvoie undefined si pas trouvé
 //   getAssignment(id:number):Observable<Assignment|undefined> {
@@ -122,8 +122,20 @@ export class AssignmentsService {
 //     return forkJoin(appelsVersAddAssignment);
 //   }
 
-  getAssignmentAuthorWhereIsNotDone(name: string, firstname: string): Observable<Assignment[]> {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/author/notDone?name=${name}&firstname=${firstname}`;
+  getAssignmentAuthorWhereIsNotDone(name: string, firstname: string, page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/author/notDone?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
+
+    return this.http.get<Assignment[]>(urlAssignment);
+  }
+
+  getAssignmentAuthorWhereIsDone(name: string, firstname: string, page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/author/isDoneNotMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
+
+    return this.http.get<Assignment[]>(urlAssignment);
+  }
+
+  getAssignmentAuthorWhereIsMarked(name: string, firstname: string, page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/author/isMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
 
     return this.http.get<Assignment[]>(urlAssignment);
   }

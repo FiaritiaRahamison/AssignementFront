@@ -116,7 +116,6 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getAssignmentsFromService() {
-    // on récupère les assignments depuis le service
     // this.assignmentsService
     //   .getAssignmentsPagines(this.page, this.limit)
     //   .subscribe((data) => {
