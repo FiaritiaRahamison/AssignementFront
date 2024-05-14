@@ -5,11 +5,12 @@ import { User } from '../../models/token';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assignment-list',
   standalone: true,
-  imports: [MatTableModule, DatePipe, MatButtonModule],
+  imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
 })

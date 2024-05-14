@@ -5,6 +5,13 @@
   <div class="column">
     <h2>List of unreturned assignments</h2>
 
+    <mat-paginator
+      [length]="totalPagesNotDone"
+      [pageSize]="limitNotDone"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page">
+    </mat-paginator>
+
     <table mat-table [dataSource]="assignmentNotDone" class="mat-elevation-z8">
 
       <ng-container matColumnDef="title">
@@ -37,11 +44,17 @@
 
     </table>
 
-
   </div>
 
   <div class="column">
     <h2>List of rendered assignments</h2>
+
+    <mat-paginator
+      [length]="totalPagesDone"
+      [pageSize]="limitDone"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page">
+    </mat-paginator>
 
     <table mat-table [dataSource]="assignmentDone" class="mat-elevation-z8">
 
@@ -79,6 +92,13 @@
 
   <div class="column">
     <h2>List of noted assignments</h2>
+
+    <mat-paginator
+      [length]="totalPagesMarked"
+      [pageSize]="limitMarked"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page">
+    </mat-paginator>
 
     <table mat-table [dataSource]="assignmentMarked" class="mat-elevation-z8">
 
