@@ -11,3 +11,10 @@
   justify-content: center;
   width: 120px;
 }
+.subject-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
