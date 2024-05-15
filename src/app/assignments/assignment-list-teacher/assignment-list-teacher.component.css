@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+}
+.column {
+  flex: 1; /* Ajustez cette valeur pour contrôler la largeur des colonnes */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.subject-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}

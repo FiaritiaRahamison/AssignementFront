@@ -38,7 +38,7 @@ export class AssignmentListComponent implements OnInit {
   hasNextPageNotDone!: boolean;
   hasPrevPageNotDone!: boolean;
 
-  //Assignment not but not marked
+  //Assignment done but not marked
   assignmentDone: Assignment[] = [];
   pageDone = 1;
   limitDone = 10;
