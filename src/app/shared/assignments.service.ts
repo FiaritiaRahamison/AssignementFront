@@ -139,4 +139,10 @@ export class AssignmentsService {
 
     return this.http.get<Assignment[]>(urlAssignment);
   }
+
+  updateAssignment(assignment:Assignment):Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
+
+    return this.http.put<Assignment>(urlAssignment, assignment);
+  }
 }

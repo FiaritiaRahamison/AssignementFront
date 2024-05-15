@@ -76,9 +76,11 @@ export class AssignmentListComponent implements OnInit {
       console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
     }
 
-    this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
-    this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
-    this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+    if(this.userConnected) {
+      this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
+      this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
+      this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+    }
   }
 
 
@@ -135,8 +137,23 @@ export class AssignmentListComponent implements OnInit {
         event.currentIndex
       );
 
-      const item = event.container.data[event.currentIndex];
+      var item = event.container.data[event.currentIndex];
+      item.isDone = event.container.data === this.assignmentDone;
       console.log('item', item);
+
+      this.assignmentService.updateAssignment(item)
+      .subscribe({
+        next: data => {
+          this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
+          this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        },
+        error: (e) => {
+          this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
+          this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        }
+      })
     }
   }
 }
