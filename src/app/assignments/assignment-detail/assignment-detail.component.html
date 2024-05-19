@@ -2,31 +2,28 @@
 <h2>Détail de l'assignment:</h2>
 
 <mat-card>
-  <!-- <mat-card-content>
-    <mat-card-title>{{ assignmentTransmis.nom }}</mat-card-title>
+  <mat-card-content>
+    <mat-card-title>{{ assignmentTransmis.title }}</mat-card-title>
     <mat-card-subtitle>{{
-      assignmentTransmis.dateDeRendu | date
+      assignmentTransmis.deadline | date:'dd/MM/yyyy'
     }}</mat-card-subtitle>
   </mat-card-content>
+  <p>{{ assignmentTransmis.description }}</p>
   <mat-card-actions class="container">
-    @if(!assignmentTransmis.rendu) {
+    @if(!assignmentTransmis.isMark) {
     <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     }
-    <button mat-raised-button color="warn" (click)="onDelete()"
-            [disabled]="!isAdmin()"
-    >
+    <button mat-raised-button color="warn" (click)="onDelete()">
       DELETE
     </button>
     <nav>
-      <a routerLink="edit">
-        <button mat-raised-button color="primary"
-                [disabled]="!isAdmin()"
-        >
+      <!-- <a routerLink="edit"> -->
+        <button mat-raised-button color="primary">
           EDIT
         </button>
-      </a>
+      <!-- </a> -->
     </nav>
-  </mat-card-actions> -->
+  </mat-card-actions>
 </mat-card>
 
 }

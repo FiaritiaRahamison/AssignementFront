@@ -55,7 +55,11 @@
 
       <ng-container matColumnDef="option">
         <th mat-header-cell *matHeaderCellDef>  </th>
-        <td mat-cell *matCellDef> <button mat-button color="primary">Detail</button> </td>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['/assignment', element._id]">
+            <button mat-button color="primary">Detail</button>
+          </a>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -118,7 +122,11 @@
 
       <ng-container matColumnDef="option">
         <th mat-header-cell *matHeaderCellDef>  </th>
-        <td mat-cell *matCellDef> <button mat-button color="primary">Detail</button> </td>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['/assignment', element._id]">
+            <button mat-button color="primary">Detail</button>
+          </a>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
@@ -162,7 +170,11 @@
 
       <ng-container matColumnDef="option">
         <th mat-header-cell *matHeaderCellDef>  </th>
-        <td mat-cell *matCellDef> <button mat-button color="primary">Detail</button> </td>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['/assignment', element._id]">
+            <button mat-button color="primary">Detail</button>
+          </a>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>

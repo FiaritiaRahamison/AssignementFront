@@ -20,7 +20,7 @@ export class AssignmentsService {
               private server: Server) { }
 
   //uri = 'http://localhost:8010/api/assignments';
-  uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
+  // uri = "https://angularmbdsmadagascar2024.onrender.com/api/assignments";
 
   // retourne tous les assignments
 //   getAssignments():Observable<Assignment[]> {
@@ -156,5 +156,11 @@ export class AssignmentsService {
     const urlAssignment = `${this.server.getUrl()}/api/assignments/teacher/isMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
 
     return this.http.get<Assignment[]>(urlAssignment);
+  }
+
+  getDetailAssignment(id: string|undefined): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/${id}`;
+
+    return this.http.get<Assignment>(urlAssignment);
   }
 }
