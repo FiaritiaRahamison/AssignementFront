@@ -1,29 +1,74 @@
 @if(assignmentTransmis) {
-<h2>Détail de l'assignment:</h2>
+<h2>Assignment detail</h2>
 
-<mat-card>
-  <mat-card-content>
+<mat-card class="container">
+  <mat-card-header>
     <mat-card-title>{{ assignmentTransmis.title }}</mat-card-title>
     <mat-card-subtitle>{{
       assignmentTransmis.deadline | date:'dd/MM/yyyy'
     }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ assignmentTransmis.description }}</p>
+
+    <div class="detail">
+      <div mat-card-avatar>
+          <img src="/assets/images/books.jpg" alt="Subject Image" class="example-header-image">
+      </div>
+      <p style="padding-left: 15%;">{{ assignmentTransmis.subject.name }}</p>
+    </div>
+
+    <div class="detail">
+      <div mat-card-avatar>
+          <img src="/assets/images/user2.jpg" alt="Subject Image" class="example-header-image">
+      </div>
+      <p style="padding-left: 15%;">{{ assignmentTransmis.subject.teacher.name }}</p>
+      <p style="padding-left: 2%;">{{ assignmentTransmis.subject.teacher.firstname }}</p>
+    </div>
+
+    <div class="content">
+      <p style="font-weight: bold;">Mark: </p>
+      @if(assignmentTransmis.isMark) {
+        <p style="padding-left: 2%;">{{ assignmentTransmis.mark }}</p>
+      } @else {
+        <p style="padding-left: 2%; color: red;">Not rated yet</p>
+      }
+    </div>
+
+    <div class="content">
+      <p style="font-weight: bold;">Remark(s): </p>
+      @if(assignmentTransmis.remark) {
+        <p style="padding-left: 2%;">{{ assignmentTransmis.remark }}</p>
+      } @else {
+        <p style="padding-left: 2%;">There are no comments</p>
+      }
+    </div>
   </mat-card-content>
-  <p>{{ assignmentTransmis.description }}</p>
-  <mat-card-actions class="container">
-    @if(!assignmentTransmis.isMark) {
+
+  <mat-card-actions>
+    <div class="button-row">
+        <button mat-stroked-button color="primary">Edit</button>
+        <button mat-stroked-button color="warn">Remove</button>
+        <button mat-stroked-button color="accent">Mark</button>
+    </div>
+  </mat-card-actions>
+
+
+  <!-- <mat-card-actions class="container">
     <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
-    }
     <button mat-raised-button color="warn" (click)="onDelete()">
       DELETE
     </button>
     <nav>
-      <!-- <a routerLink="edit"> -->
+      <a routerLink="edit">
         <button mat-raised-button color="primary">
           EDIT
         </button>
-      <!-- </a> -->
+      </a>
     </nav>
-  </mat-card-actions>
+  </mat-card-actions> -->
+
 </mat-card>
 
 }

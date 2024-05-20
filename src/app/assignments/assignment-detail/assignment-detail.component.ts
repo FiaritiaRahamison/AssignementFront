@@ -9,6 +9,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import  {RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
+import { User } from '../../models/token';
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
@@ -18,7 +19,14 @@ import { AuthService } from '../../shared/auth.service';
   styleUrl: './assignment-detail.component.css'
 })
 export class AssignmentDetailComponent implements OnInit {
+
+  userConnected!: User;
+
   assignmentTransmis!: Assignment|undefined;
+
+  isEdit = false;
+  isRemove = false;
+  isMark = false;
 
   constructor(private assignmentsService:AssignmentsService,
               private authService:AuthService,
@@ -26,12 +34,41 @@ export class AssignmentDetailComponent implements OnInit {
               private router:Router) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    console.log("id",id);
-    this.assignmentsService.getDetailAssignment(id)
-    .subscribe(assignment => {
-      this.assignmentTransmis = assignment;
-    });
+
+    let data = window.localStorage.getItem("user");
+    if (data) {
+      this.userConnected = JSON.parse(data);
+    } else {
+      console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
+    }
+
+    if(this.userConnected) {
+      const id = this.route.snapshot.params['id'];
+      this.assignmentsService.getDetailAssignment(id)
+      .subscribe(assignment => {
+        this.assignmentTransmis = assignment;
+      });
+    }
+
+    this.getRoleButton(this.userConnected, this.assignmentTransmis)
+
+  }
+
+  getRoleButton(userConnected: User, assignment: Assignment|undefined) {
+    if(assignment) {
+      if(userConnected.role == 3) {
+        this.isEdit = true;
+        this.isRemove = true;
+      } if(userConnected.role == 2) {
+        if(assignment.subject.teacher._id == userConnected._id) {
+          this.isEdit = true;
+          this.isRemove = true;
+          if(!assignment.isMark) {
+            this.isMark = true;
+          }
+        }
+      }
+    }
   }
 
   onAssignmentRendu() {
