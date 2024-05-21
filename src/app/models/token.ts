@@ -6,6 +6,7 @@ export interface Token {
 
 export interface User {
   _id: string,
+  id: string,
   name: string,
   firstname: string,
   login: string,

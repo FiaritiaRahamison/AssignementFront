@@ -47,10 +47,9 @@ export class AssignmentDetailComponent implements OnInit {
       this.assignmentsService.getDetailAssignment(id)
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
+        this.getRoleButton(this.userConnected, this.assignmentTransmis)
       });
     }
-
-    this.getRoleButton(this.userConnected, this.assignmentTransmis)
 
   }
 
@@ -60,10 +59,10 @@ export class AssignmentDetailComponent implements OnInit {
         this.isEdit = true;
         this.isRemove = true;
       } if(userConnected.role == 2) {
-        if(assignment.subject.teacher._id == userConnected._id) {
+        if(assignment?.subject.teacher._id == userConnected.id) {
           this.isEdit = true;
           this.isRemove = true;
-          if(!assignment.isMark) {
+          if(!assignment?.isMark) {
             this.isMark = true;
           }
         }

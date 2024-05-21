@@ -48,9 +48,9 @@
 
   <mat-card-actions>
     <div class="button-row">
-        <button mat-stroked-button color="primary">Edit</button>
-        <button mat-stroked-button color="warn">Remove</button>
-        <button mat-stroked-button color="accent">Mark</button>
+        <button *ngIf="isEdit" mat-stroked-button color="primary">Edit</button>
+        <button *ngIf="isRemove" mat-stroked-button color="warn">Remove</button>
+        <button *ngIf="isMark" mat-stroked-button color="accent">Mark</button>
     </div>
   </mat-card-actions>
 
