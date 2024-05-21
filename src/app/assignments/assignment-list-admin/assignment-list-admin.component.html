@@ -1,1 +1,92 @@
-<p>assignment-list-admin works!</p>
+<h2>Assignments list</h2>
+
+<div class="container">
+
+  <mat-paginator
+    [length]="totalPages"
+    [pageSize]="limit"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page">
+  </mat-paginator>
+
+  <table
+    mat-table
+    [dataSource]="assignments"
+    class="mat-elevation-z8 cdk-drag-preview"
+  >
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title assignment</th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deadline">
+      <th mat-header-cell *matHeaderCellDef> Deadline </th>
+      <td mat-cell *matCellDef="let element"> {{element.deadline | date:'dd/MM/yyyy' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subject">
+      <th mat-header-cell *matHeaderCellDef> Subject </th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+        </div>
+        {{element.subject.name}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="teacher">
+      <th mat-header-cell *matHeaderCellDef> Teacher </th>
+      <td mat-cell *matCellDef="let element">
+        <div>
+          <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+        </div>
+         {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mark">
+      <th mat-header-cell *matHeaderCellDef> Mark </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.isMark">
+          {{ element.mark }}
+        </div>
+        <div *ngIf="!element.isMark" style="color: red;">
+          Not rated yet
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="remark">
+      <th mat-header-cell *matHeaderCellDef> Remark(s) </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.remark?.trim().length > 0">
+          {{ element.mark }}
+        </div>
+        <div *ngIf="!element.remark || element.remark?.trim().length === 0">
+          There are no comments
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="option">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/assignment', element._id]">
+          <button mat-button color="primary">Detail</button>
+        </a> |
+
+        <button mat-button color="accent">Edit</button> |
+
+        <button mat-button color="warn">Remove</button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</div>
+

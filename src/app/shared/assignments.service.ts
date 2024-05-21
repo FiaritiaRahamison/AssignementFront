@@ -163,4 +163,10 @@ export class AssignmentsService {
 
     return this.http.get<Assignment>(urlAssignment);
   }
+
+  getAssignments(page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments?page=${page}&limit=${limit}`;
+
+    return this.http.get<Assignment[]>(urlAssignment);
+  }
 }

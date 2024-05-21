@@ -46,6 +46,7 @@ export class AuthenticationComponent {
           this.authLoading = false;
           if(data.user.role == 1) this.router.navigate(['/student/assignments']);
           if(data.user.role == 2) this.router.navigate(['/teacher/assignments']);
+          if(data.user.role == 3) this.router.navigate(['/admin/assignments']);
         },
         error: (e) => {
           this.errorMessage = e?.error?.message;

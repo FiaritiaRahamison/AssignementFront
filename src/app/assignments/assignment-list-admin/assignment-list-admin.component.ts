@@ -1,12 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AssignmentsService } from '../../shared/assignments.service';
+import { Assignment } from '../assignment.model';
+import { User } from '../../models/token';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import { DatePipe } from '@angular/common';
+import  { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-assignment-list-admin',
   standalone: true,
-  imports: [],
+  imports: [MatPaginatorModule, MatTableModule, DatePipe, RouterLink,
+    MatButtonModule, CommonModule
+  ],
   templateUrl: './assignment-list-admin.component.html',
   styleUrl: './assignment-list-admin.component.css'
 })
-export class AssignmentListAdminComponent {
+export class AssignmentListAdminComponent implements OnInit {
 
+  userConnected!: User;
+
+  assignments: Assignment[] = [];
+  page = 1;
+  limit = 10;
+  totalDocs!: number;
+  totalPages!: number;
+  nextPage!: number;
+  prevPage!: number;
+  hasNextPage!: boolean;
+  hasPrevPage!: boolean;
+
+  displayedColumns: string[] = ['title', 'deadline', 'subject', 'teacher', 'mark', 'remark', 'option'];
+
+
+  constructor(
+    private assignmentService: AssignmentsService
+  ) {}
+
+  ngOnInit(): void {
+    let data = window.localStorage.getItem("user");
+    if (data) {
+      this.userConnected = JSON.parse(data);
+    } else {
+      console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
+    }
+
+    if(this.userConnected) {
+      this.getAssignments(this.page, this.limit);
+    }
+  }
+
+  getAssignments(page: number, limit: number) {
+    this.assignmentService.getAssignments(page, limit)
+    .subscribe((data) => {
+      this.assignments = data.docs;
+      this.totalDocs = data.totalDocs;
+      this.totalPages = data.totalPages;
+      this.nextPage = data.nextPage;
+      this.prevPage = data.prevPage;
+      this.hasNextPage = data.hasNextPage;
+      this.hasPrevPage = data.hasPrevPage;
+    })
+  }
 }
