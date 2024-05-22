@@ -14,12 +14,13 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import  {RouterLink} from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-assignment-list',
   standalone: true,
   imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule,
-    CdkDropList, CdkDrag, RouterLink
+    CdkDropList, CdkDrag, RouterLink, MatIconModule
   ],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'

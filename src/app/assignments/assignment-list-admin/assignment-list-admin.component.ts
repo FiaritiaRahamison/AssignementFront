@@ -8,12 +8,15 @@ import { DatePipe } from '@angular/common';
 import  { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-assignment-list-admin',
   standalone: true,
   imports: [MatPaginatorModule, MatTableModule, DatePipe, RouterLink,
-    MatButtonModule, CommonModule
+    MatButtonModule, CommonModule, MatIconModule
   ],
   templateUrl: './assignment-list-admin.component.html',
   styleUrl: './assignment-list-admin.component.css'
@@ -36,7 +39,8 @@ export class AssignmentListAdminComponent implements OnInit {
 
 
   constructor(
-    private assignmentService: AssignmentsService
+    private assignmentService: AssignmentsService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -63,5 +67,19 @@ export class AssignmentListAdminComponent implements OnInit {
       this.hasNextPage = data.hasNextPage;
       this.hasPrevPage = data.hasPrevPage;
     })
+  }
+
+  openDeleteDialog(assignment: Assignment): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {assignment: assignment},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined) {
+        console.log("delete");
+      } else {
+        console.log("not delete");
+      }
+    });
   }
 }

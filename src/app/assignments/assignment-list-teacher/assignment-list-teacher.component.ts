@@ -6,12 +6,13 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-assignment-list-teacher',
   standalone: true,
   imports: [MatTableModule, DatePipe, MatButtonModule,
-    RouterLink
+    RouterLink, MatIconModule
   ],
   templateUrl: './assignment-list-teacher.component.html',
   styleUrl: './assignment-list-teacher.component.css'

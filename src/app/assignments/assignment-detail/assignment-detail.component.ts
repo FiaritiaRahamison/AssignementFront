@@ -10,11 +10,16 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import  {RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
 import { User } from '../../models/token';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
   imports: [CommonModule, RouterLink,
-    MatButtonModule, MatCardModule, MatCheckboxModule],
+    MatButtonModule, MatCardModule, MatCheckboxModule,
+    MatIconModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })
@@ -31,7 +36,8 @@ export class AssignmentDetailComponent implements OnInit {
   constructor(private assignmentsService:AssignmentsService,
               private authService:AuthService,
               private route:ActivatedRoute,
-              private router:Router) { }
+              private router:Router,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -68,6 +74,20 @@ export class AssignmentDetailComponent implements OnInit {
         }
       }
     }
+  }
+
+  openDeleteDialog(assignment: Assignment): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {assignment: assignment},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined) {
+        console.log("delete");
+      } else {
+        console.log("not delete");
+      }
+    });
   }
 
   onAssignmentRendu() {

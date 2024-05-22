@@ -28,6 +28,15 @@
     </div>
 
     <div class="content">
+      <p style="font-weight: bold;">Done: </p>
+      @if(assignmentTransmis.isDone) {
+        <p style="padding-left: 2%; color: green;"> Assignment done</p>
+      } @else {
+        <p style="padding-left: 2%; color: red;"> Assignment not done</p>
+      }
+    </div>
+
+    <div class="content">
       <p style="font-weight: bold;">Mark: </p>
       @if(assignmentTransmis.isMark) {
         <p style="padding-left: 2%;">{{ assignmentTransmis.mark }}</p>
@@ -48,9 +57,9 @@
 
   <mat-card-actions>
     <div class="button-row">
-        <button *ngIf="isEdit" mat-stroked-button color="primary">Edit</button>
-        <button *ngIf="isRemove" mat-stroked-button color="warn">Remove</button>
-        <button *ngIf="isMark" mat-stroked-button color="accent">Mark</button>
+        <button *ngIf="isEdit" mat-stroked-button color="primary"> <mat-icon>edit</mat-icon> Edit</button>
+        <button *ngIf="isRemove" mat-stroked-button color="warn" (click)="openDeleteDialog(assignmentTransmis)"> <mat-icon>delete_outline</mat-icon> Remove</button>
+        <button *ngIf="isMark" mat-stroked-button color="accent"> <mat-icon>check</mat-icon> Mark</button>
     </div>
   </mat-card-actions>
 
