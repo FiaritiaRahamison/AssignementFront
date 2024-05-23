@@ -14,3 +14,27 @@ html, body {
 .sidenav-container {
   height: 100vh;
 }
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.mat-sidenav-container {
+  flex: 1;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Assurez-vous que la toolbar est au-dessus des autres éléments */
+}
+
+.content {
+  margin-top: 64px; /* Hauteur de la toolbar */
+  height: calc(100% - 64px);
+  overflow-y: auto;
+}
+
