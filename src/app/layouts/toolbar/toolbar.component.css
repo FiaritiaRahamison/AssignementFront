@@ -22,3 +22,13 @@ mat-toolbar .logo {
   display: flex;
   align-items: center;
 }
+
+.profile-text{
+  font-size: 12px;
+  margin-left: 2px;
+  margin-right: 25px;
+}
+
+.logout-text{
+margin-left: 5px;
+}
