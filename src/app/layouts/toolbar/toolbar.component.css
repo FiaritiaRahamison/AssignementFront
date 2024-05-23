@@ -13,3 +13,12 @@ mat-toolbar .logo {
   margin-right: 16px; /* Espace entre le logo et le titre */
   object-fit: contain; /* Assure que l'image garde ses proportions */
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+}
