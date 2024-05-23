@@ -1,17 +1,18 @@
 /* src/app/layouts/sidebar/sidebar.component.scss */
 .sidenav-container {
-    height: 100%;
-  }
+  height: 100%;
+}
 
-  mat-sidenav {
-    width: 250px;
-  }
+mat-sidenav {
+top:var(--mat-toolbar-standard-height);
+  width: 250px;
+}
 
-  .content {
-    padding: 16px;
-  }
+.content {
+  padding: 16px;
+}
 
-  mat-list-item .a {
-    text-decoration: none;
-    color: inherit;
-  }
+.menuItem {
+  text-decoration: none;
+  margin-left: 20px;
+}
