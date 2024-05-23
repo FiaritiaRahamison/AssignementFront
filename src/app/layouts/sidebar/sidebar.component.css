@@ -2,12 +2,16 @@
 .sidenav-container {
     height: 100%;
   }
-  
+
   mat-sidenav {
     width: 250px;
   }
-  
+
   .content {
     padding: 16px;
   }
-  
+
+  mat-list-item .a {
+    text-decoration: none;
+    color: inherit;
+  }

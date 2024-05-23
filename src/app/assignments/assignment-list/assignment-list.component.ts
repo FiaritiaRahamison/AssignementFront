@@ -6,7 +6,6 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { SidebarComponent } from '../../layouts/sidebar/sidebar.component';
 
 import {
   CdkDragDrop,
@@ -20,7 +19,7 @@ import {
   selector: 'app-assignment-list',
   standalone: true,
   imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule,
-    CdkDropList, CdkDrag, SidebarComponent
+    CdkDropList, CdkDrag
   ],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'

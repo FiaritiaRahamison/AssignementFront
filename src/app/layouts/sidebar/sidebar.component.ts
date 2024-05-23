@@ -8,6 +8,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule, MatNavList} from '@angular/material/list';
 
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -20,7 +21,8 @@ import {MatListModule, MatNavList} from '@angular/material/list';
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatNavList
+    MatNavList,
+    MatListModule
   ],
   templateUrl: 'sidebar.component.html',
   styleUrl: 'sidebar.component.css'

@@ -8,15 +8,28 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AuthService } from './shared/auth.service';
 import { AssignmentsService } from './shared/assignments.service';
-
+import { NgModule } from '@angular/core';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { ToolbarComponent } from './layouts/toolbar/toolbar.component';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
-            MatIconModule, MatSlideToggleModule,
-            AssignmentsComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+
+          MatIconModule, MatSlideToggleModule,
+            AssignmentsComponent, SidebarComponent,CommonModule,
+              
+              MatSidenavModule,
+              MatToolbarModule,
+              MatListModule, ToolbarComponent],
+
+  templateUrl: 'app.component.html',
+  styleUrl: 'app.component.css'
 })
 export class AppComponent {
   // title = 'Application de gestion des assignments';
