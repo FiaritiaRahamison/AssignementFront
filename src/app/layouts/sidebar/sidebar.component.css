@@ -1,0 +1,18 @@
+/* src/app/layouts/sidebar/sidebar.component.scss */
+.sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+top:var(--mat-toolbar-standard-height);
+  width: 250px;
+}
+
+.content {
+  padding: 16px;
+}
+
+.menuItem {
+  text-decoration: none;
+  margin-left: 20px;
+}

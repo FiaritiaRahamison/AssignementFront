@@ -1,0 +1,34 @@
+/* src/app/layouts/sidebar/sidebar.component.scss */
+.toolbar {
+    height: 100%;
+}
+
+mat-icon-button{
+margin-left:10px;
+}
+
+mat-toolbar .logo {
+  height: 50%; /* L'image prendra toute la hauteur de la toolbar */
+  max-height: 64px; /* Limite la hauteur maximale à 64px (valeur par défaut de la hauteur de mat-toolbar) */
+  margin-right: 16px; /* Espace entre le logo et le titre */
+  object-fit: contain; /* Assure que l'image garde ses proportions */
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+}
+
+.profile-text{
+  font-size: 12px;
+  margin-left: 2px;
+  margin-right: 25px;
+}
+
+.logout-text{
+margin-left: 5px;
+}

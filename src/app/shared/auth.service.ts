@@ -2,19 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Server } from '../environment/server';
 import { Token } from '../models/token';
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
 
   constructor(
     private http: HttpClient,
-    private server: Server
-  ) { }
+    private server: Server,
+    private router: Router
+  ) {
+    this.loggedIn = !!localStorage.getItem('token');
+   }
 
   // méthode pour connecter l'utilisateur
   // Typiquement, il faudrait qu'elle accepte en paramètres
@@ -27,12 +33,25 @@ export class AuthService {
       password
     }
 
-    return this.http.post<Token>(urlLogin, param);
+    return this.http.post<Token>(urlLogin, param).pipe(
+      tap((data: Token) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        this.loggedIn = true;
+      })
+    );
   }
 
   // méthode pour déconnecter l'utilisateur
   logOut() {
     this.loggedIn = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+
+  isUserLoggedIn(): boolean {
+    return this.loggedIn;
   }
 
   // methode qui indique si on est connecté en tant qu'admin ou pas

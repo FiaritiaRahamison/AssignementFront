@@ -1,13 +1,20 @@
-<!-- <h1>
-  <nav>
-    <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
-<mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-<button mat-button (click)="genererDonneesDeTest()">Peupler BD</button> -->
+<!-- src/app/app.component.html -->
+<ng-container *ngIf="isUserLoggedIn(); else noUser">
+  <app-toolbar class="toolbar" (toggleSidenav)="sidenav.toggle()"></app-toolbar>
 
-<router-outlet></router-outlet>
-<!--
-<app-assignments></app-assignments>
--->
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened>
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
 
+    <mat-sidenav-content>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<ng-template #noUser>
+  <router-outlet></router-outlet>
+</ng-template>
