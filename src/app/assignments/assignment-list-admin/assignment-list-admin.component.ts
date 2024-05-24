@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignment-list-admin',
@@ -42,7 +43,8 @@ export class AssignmentListAdminComponent implements OnInit {
   constructor(
     private assignmentService: AssignmentsService,
     public dialog: MatDialog,
-    private titleService: TitleService
+    private titleService: TitleService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -79,7 +81,21 @@ export class AssignmentListAdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
-        console.log("delete");
+        this.assignmentService.deleteAssignment(result)
+        .subscribe({
+          next: data => {
+            this.snackBar.open(data.message, "", {
+              duration: 3000
+            });
+            this.getAssignments(this.page, this.limit);
+          },
+          error: (e) => {
+            this.snackBar.open(e.message, "", {
+              duration: 3000
+            });
+            this.getAssignments(this.page, this.limit);
+          }
+        })
       } else {
         console.log("not delete");
       }

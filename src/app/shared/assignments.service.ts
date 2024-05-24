@@ -169,4 +169,10 @@ export class AssignmentsService {
 
     return this.http.get<Assignment[]>(urlAssignment);
   }
+
+  deleteAssignment(assignmentId: string): Observable<any>  {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignmentId}`;
+
+    return this.http.delete<any>(urlAssignment);
+  }
 }

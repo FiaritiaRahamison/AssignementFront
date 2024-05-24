@@ -12,7 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: AssignmentsComponent },
+  { path: 'home', component: AuthenticationComponent },
   { path: "add", component: AddAssignmentComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},
   { path: "login", component: AuthenticationComponent},

@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -39,7 +40,8 @@ export class AssignmentDetailComponent implements OnInit {
               private route:ActivatedRoute,
               private router:Router,
               public dialog: MatDialog,
-              private titleService: TitleService
+              private titleService: TitleService,
+              private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -87,41 +89,25 @@ export class AssignmentDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
-        console.log("delete");
+        this.assignmentsService.deleteAssignment(result)
+        .subscribe({
+          next: data => {
+            this.snackBar.open(data.message, "", {
+              duration: 3000
+            });
+            this.router.navigate(['/home']);
+          },
+          error: (e) => {
+            this.snackBar.open(e.message, "", {
+              duration: 3000
+            });
+            this.router.navigate(['/home']);
+          }
+        })
       } else {
         console.log("not delete");
       }
     });
   }
 
-  onAssignmentRendu() {
-    // on a cliqué sur la checkbox, on change le statut de l'assignment
-    // if(this.assignmentTransmis) {
-    //   this.assignmentTransmis.rendu = true;
-    //   this.assignmentsService.updateAssignment(this.assignmentTransmis)
-    //   .subscribe(message => {
-    //     console.log(message);
-    //     // on navigue vers la liste des assignments
-    //     this.router.navigate(['/home']);
-    //   });
-    // }
-  }
-
-  onDelete() {
-    // on va directement utiliser le service
-    // if(this.assignmentTransmis) {
-    //   this.assignmentsService.deleteAssignment(this.assignmentTransmis)
-    //   .subscribe(message => {
-    //     console.log(message);
-    //     // on va cacher la vue de detail en mettant assignmentTransmis à undefined
-    //     this.assignmentTransmis = undefined;
-    //     // on navigue vers la liste des assignments
-    //     this.router.navigate(['/home']);
-    //   });
-    // }
-  }
-
-  // isAdmin() {
-  //   return this.authService.loggedIn;
-  // }
 }
