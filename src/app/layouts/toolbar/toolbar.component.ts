@@ -4,6 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { AuthService } from '../../shared/auth.service';
 import { TitleService } from '../../shared/title.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: 'toolbar.component.html',
@@ -21,7 +23,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -34,5 +37,9 @@ export class ToolbarComponent implements OnInit {
 
   onLogout() {
     this.authService.logOut();
+  }
+
+  navigateToProfile () {
+    this.router.navigate(['/user/profile']);
   }
 }
