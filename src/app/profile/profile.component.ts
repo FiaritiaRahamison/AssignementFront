@@ -28,9 +28,9 @@ export class ProfileComponent implements OnInit{
     let data = window.localStorage.getItem("user");
     if (data) {
       this.userConnected = JSON.parse(data);
-      if(this.userConnected.role == 1) this.role = "Student"
-      if(this.userConnected.role == 2) this.role = "Teacher"
-      if(this.userConnected.role == 1) this.role = "Administrator"
+      if(this.userConnected.role == 1) this.role = "Student";
+      if(this.userConnected.role == 2) this.role = "Teacher";
+      if(this.userConnected.role == 3) this.role = "Administrator";
     } else {
       console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
     }
