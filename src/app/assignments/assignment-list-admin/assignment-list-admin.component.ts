@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'app-assignment-list-admin',
@@ -40,7 +41,8 @@ export class AssignmentListAdminComponent implements OnInit {
 
   constructor(
     private assignmentService: AssignmentsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class AssignmentListAdminComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.titleService.changeTitle('Assignments list');
       this.getAssignments(this.page, this.limit);
     }
   }

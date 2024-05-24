@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'app-assignment-list-teacher',
@@ -47,7 +48,8 @@ export class AssignmentListTeacherComponent implements OnInit {
   displayedColumns1: string[] = ['title', 'deadline', 'subject', 'student', 'option'];
 
   constructor(
-    private assignmentService: AssignmentsService
+    private assignmentService: AssignmentsService,
+    private titleService: TitleService
   ){}
 
   ngOnInit(): void {
@@ -58,6 +60,7 @@ export class AssignmentListTeacherComponent implements OnInit {
       console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
     }
     if(this.userConnected) {
+      this.titleService.changeTitle('List of assignments');
       this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
       this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
     }

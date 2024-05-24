@@ -1,14 +1,21 @@
 <!-- src/app/layouts/toolbar/toolbar.component.html -->
 <mat-toolbar color="primary">
   <img src="assets/images/logo.png" alt="Logo" class="logo" />
-  <button mat-icon-button (click)="onToggleSidenav()">
+  <button class="icone" mat-icon-button (click)="onToggleSidenav()">
     <mat-icon>menu</mat-icon>
   </button>
   <span class="spacer"></span>
-<mat-icon>person</mat-icon>
-<span class="profile-text">My profile</span>
-  <button mat-button class="logout-button" (click)="onLogout()">
-    <span class="logout-text">Logout</span>
-    <mat-icon>logout</mat-icon>
-  </button>
+  <div class="title">{{pageTitle}}</div>
+
+  <div class="profil">
+    <div class="person">
+      <mat-icon>person</mat-icon>
+      <span class="profile-text">My profile</span>
+    </div>
+
+      <button mat-button class="logout-button" (click)="onLogout()">
+        <span class="logout-text">Logout</span>
+        <mat-icon class="logout-icon">logout</mat-icon>
+      </button>
+  </div>
 </mat-toolbar>

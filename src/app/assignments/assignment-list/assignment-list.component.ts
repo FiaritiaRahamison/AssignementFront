@@ -6,6 +6,7 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { TitleService } from '../../shared/title.service';
 
 import {
   CdkDragDrop,
@@ -68,7 +69,8 @@ export class AssignmentListComponent implements OnInit {
   displayedColumns2: string[] = ['title', 'deadline', 'subject', 'teacher', 'option'];
 
   constructor(
-    private assignmentService: AssignmentsService
+    private assignmentService: AssignmentsService,
+    private titleService: TitleService
   ){}
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class AssignmentListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.titleService.changeTitle(`List of ${this.userConnected.name} ${this.userConnected.firstname}'s assignments`);
       this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
       this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
       this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);

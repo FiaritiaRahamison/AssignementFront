@@ -13,6 +13,7 @@ import { User } from '../../models/token';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -37,7 +38,9 @@ export class AssignmentDetailComponent implements OnInit {
               private authService:AuthService,
               private route:ActivatedRoute,
               private router:Router,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private titleService: TitleService
+  ) { }
 
   ngOnInit() {
 
@@ -49,6 +52,7 @@ export class AssignmentDetailComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.titleService.changeTitle('Assignment detail');
       const id = this.route.snapshot.params['id'];
       this.assignmentsService.getDetailAssignment(id)
       .subscribe(assignment => {
