@@ -14,3 +14,9 @@
   object-fit: cover;
   vertical-align: middle;
 }
+
+.btnAjout {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px 10px 0px 0px;
+}

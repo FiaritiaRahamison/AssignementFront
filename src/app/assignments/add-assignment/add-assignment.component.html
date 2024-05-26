@@ -1,4 +1,4 @@
-<h1>Ajout d'un assignment</h1>
+<h1 class="section-title">New assignment</h1>
 <form
   ngForm
   #assignmentForm
@@ -8,20 +8,30 @@
   <mat-form-field>
     <input
       matInput
-      placeholder="Nom"
+      placeholder="Title"
       required
-      [(ngModel)]="nomAssignment"
-      name="nom"
+      [(ngModel)]="title"
+      name="title"
     />
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Date de rendu</mat-label>
     <input
       matInput
+      placeholder="Description"
+      [(ngModel)]="description"
+      name="description"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Deadline</mat-label>
+    <input
+      matInput
+      [min]="minDate"
       [matDatepicker]="picker"
-      [(ngModel)]="dateDeRendu"
-      name="date"
+      [(ngModel)]="deadline"
+      name="deadline"
     />
     <mat-hint>dd/MM/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -31,8 +41,8 @@
   <button
     mat-stroked-button
     color="primary"
-    [disabled]="nomAssignment == '' || dateDeRendu === undefined"
+    [disabled]="title == '' || deadline === undefined"
   >
-    Ajouter un devoir
+    Add assignment
   </button>
 </form>
