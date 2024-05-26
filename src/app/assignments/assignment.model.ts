@@ -13,6 +13,6 @@ export class Assignment {
   mark?: number;
   remark?: string;
   link?: string;
-  author!: User;
+  author!: string;
   subject!: Subject;
 }
