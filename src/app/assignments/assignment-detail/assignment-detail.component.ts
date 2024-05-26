@@ -15,6 +15,7 @@ import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.compone
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -106,6 +107,21 @@ export class AssignmentDetailComponent implements OnInit {
         })
       } else {
         console.log("not delete");
+      }
+    });
+  }
+
+  openAddNoteDialog(assignment: Assignment): void {
+    const dialogRef = this.dialog.open(AddNoteDialogComponent, {
+      width: '30%',
+      data: {assignment: assignment}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        console.log('The note is:', result);
+        // Vous pouvez maintenant traiter la note ajoutée ici, par exemple :
+        // this.assignmentsService.updateAssignmentNote(this.assignmentTransmis.id, result);
       }
     });
   }

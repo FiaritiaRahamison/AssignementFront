@@ -37,11 +37,11 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(urlAssignment);
   }
 
-  updateAssignment(assignment:Assignment):Observable<any> {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
+  // updateAssignment(assignment:Assignment):Observable<any> {
+  //   const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
 
-    return this.http.put<Assignment>(urlAssignment, assignment);
-  }
+  //   return this.http.put<Assignment>(urlAssignment, assignment);
+  // }
 
   getAssignmentTeacherNotNoted(name: string, firstname: string, page: number, limit: number): Observable<any> {
     const urlAssignment = `${this.server.getUrl()}/api/assignments/teacher/isNotMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
@@ -81,4 +81,16 @@ export class AssignmentsService {
     const urlAssignment = `${this.server.getUrl()}/api/assignments`;
     return this.http.post<Assignment>(urlAssignment, assignment);
   }
+
+  // modifie un assignment
+  updateAssignment(assignment:Assignment):Observable<any> {
+    // let assignment = this.getDetailAssignment(assignmentId);
+    this.logService.log(assignment.title, "modifié");
+    // const urlAssignment = `$(this.server.getUrl()}/api/assignments/${assignment._id}`;
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
+
+    // return this.http.patch<Assignment>(urlAssignment, assignment);
+    return this.http.put(`${urlAssignment}`, assignment);
+  }
+
 }
