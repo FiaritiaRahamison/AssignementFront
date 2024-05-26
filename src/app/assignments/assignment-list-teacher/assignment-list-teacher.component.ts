@@ -8,12 +8,27 @@ import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assignment-list-teacher',
   standalone: true,
-  imports: [MatTableModule, DatePipe, MatButtonModule,
-    RouterLink, MatIconModule
+  imports: [
+    MatTableModule,
+    DatePipe,
+    MatButtonModule,
+    RouterLink,
+    MatIconModule,
+    CdkDropList,
+    CdkDrag,
+    MatPaginatorModule
   ],
   templateUrl: './assignment-list-teacher.component.html',
   styleUrl: './assignment-list-teacher.component.css'
@@ -95,4 +110,32 @@ export class AssignmentListTeacherComponent implements OnInit {
     })
   }
 
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      var item = event.container.data[event.currentIndex];
+      item.isMarked = event.container.data === this.assignmentMarked;
+      console.log('item', item);
+
+      this.assignmentService.updateAssignment(item)
+      .subscribe({
+        next: data => {
+          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        },
+        error: (e) => {
+          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        }
+      })
+    }
+  }
 }

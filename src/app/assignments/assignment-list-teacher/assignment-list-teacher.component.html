@@ -3,16 +3,27 @@
     <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New assignment</button>
   </a>
 </div>
-<h2>List of assignments</h2>
 
 <div class="container">
   <div class="column">
     <h2>List of not rated assignments</h2>
 
+    <mat-paginator
+    [length]="totalPagesNotMarked"
+    [pageSize]="limitNotMarked"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page">
+  </mat-paginator>
+
     <table
       mat-table
       [dataSource]="assignmentNotMarked"
-      class="mat-elevation-z8"
+      class="mat-elevation-z8 cdk-drag-preview"
+      cdkDropList
+      #listNotMarked="cdkDropList"
+      [cdkDropListData]="assignmentNotMarked"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listNotMarked]"
     >
 
       <ng-container matColumnDef="title">
@@ -64,10 +75,22 @@
   <div class="column">
     <h2>List of noted assignments</h2>
 
+    <mat-paginator
+      [length]="totalPagesMarked"
+      [pageSize]="limitMarked"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page">
+    </mat-paginator>
+
     <table
       mat-table
       [dataSource]="assignmentMarked"
-      class="mat-elevation-z8"
+      lass="mat-elevation-z8 cdk-drag-preview"
+      cdkDropList
+      #listMarked="cdkDropList"
+      [cdkDropListData]="assignmentMarked"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listMarked]"
     >
 
       <ng-container matColumnDef="title">
