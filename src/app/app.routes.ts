@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AssignmentsComponent } from './assignments/assignments.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
@@ -12,7 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: AssignmentsComponent },
+  { path: 'home', component: AuthenticationComponent },
   { path: "assignment/add", component: AddAssignmentComponent },
   { path: "assignment/:id", component: AssignmentDetailComponent},
   { path: "login", component: AuthenticationComponent},
