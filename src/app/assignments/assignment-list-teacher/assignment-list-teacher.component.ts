@@ -122,7 +122,7 @@ export class AssignmentListTeacherComponent implements OnInit {
       );
 
       var item = event.container.data[event.currentIndex];
-      item.isMarked = event.container.data === this.assignmentMarked;
+      item.isMark = event.container.data === this.assignmentMarked;
       console.log('item', item);
 
       this.assignmentService.updateAssignment(item)
