@@ -7,12 +7,13 @@ import { UsersService } from '../../shared/users.service';
 import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
+import  {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule
+    MatIconModule, MatPaginatorModule, RouterLink
   ],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
