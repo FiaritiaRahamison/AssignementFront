@@ -58,4 +58,9 @@ export class SidebarComponent implements OnInit {
     if(this.userConnected.role == 2) this.router.navigate(['/teacher/assignments']);
     if(this.userConnected.role == 3) this.router.navigate(['/admin/assignments']);
   }
+
+  goToStudentList() {
+    console.log("ato");
+    this.router.navigate(['/students']);
+  }
 }

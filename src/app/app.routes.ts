@@ -8,6 +8,7 @@ import { AssignmentListComponent } from './assignments/assignment-list/assignmen
 import { AssignmentListTeacherComponent } from './assignments/assignment-list-teacher/assignment-list-teacher.component';
 import { AssignmentListAdminComponent } from './assignments/assignment-list-admin/assignment-list-admin.component';
 import { ProfileComponent } from './profile/profile.component';
+import { StudentListComponent } from './student-list/student-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: "teacher/assignments", component: AssignmentListTeacherComponent},
   { path: "admin/assignments", component: AssignmentListAdminComponent},
   { path: "user/profile", component: ProfileComponent},
+  { path: "students", component: StudentListComponent},
 
   {
     path: "assignment/:id/edit",

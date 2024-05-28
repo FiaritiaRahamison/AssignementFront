@@ -1,0 +1,15 @@
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 80px;
+}
+
+.card {
+  margin: 10;
+}
+
+.student-card {
+  max-width: 250px;
+  height: auto;
+}
