@@ -18,6 +18,8 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 })
 export class StudentListComponent implements OnInit {
 
+  userConnected!: User;
+
   students: User[] = [];
   page = 1;
   limit = 8;
@@ -33,7 +35,16 @@ export class StudentListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getStudents(this.page, this.limit);
+    let data = window.localStorage.getItem("user");
+    if (data) {
+      this.userConnected = JSON.parse(data);
+    } else {
+      console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
+    }
+
+    if(this.userConnected) {
+      this.getStudents(this.page, this.limit);
+    }
   }
 
   getStudents(page: number, limit: number) {

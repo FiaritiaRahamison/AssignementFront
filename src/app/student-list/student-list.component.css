@@ -13,3 +13,9 @@
   max-width: 250px;
   height: auto;
 }
+
+.btnAjout {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px 10px 0px 0px;
+}

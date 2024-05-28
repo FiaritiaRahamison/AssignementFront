@@ -3,11 +3,18 @@
     <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New assignment</button>
   </a>
 </div>
-<h2>List of assignments</h2>
-
 <div class="container">
   <div class="column">
     <h2>List of not rated assignments</h2>
+
+    <mat-paginator
+      [length]="totalDocsNotMarked"
+      [pageSize]="limitNotMarked"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page"
+      (page)="onPageNotMarkedChange($event)"
+    >
+    </mat-paginator>
 
     <table
       mat-table
@@ -63,6 +70,15 @@
 
   <div class="column">
     <h2>List of noted assignments</h2>
+
+    <mat-paginator
+      [length]="totalDocsMarked"
+      [pageSize]="limitMarked"
+      [pageSizeOptions]="[5, 10, 25]"
+      aria-label="Select page"
+      (page)="onPageMarkedChange($event)"
+    >
+    </mat-paginator>
 
     <table
       mat-table

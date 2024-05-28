@@ -8,12 +8,13 @@ import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assignment-list-teacher',
   standalone: true,
   imports: [MatTableModule, DatePipe, MatButtonModule,
-    RouterLink, MatIconModule
+    RouterLink, MatIconModule, MatPaginatorModule
   ],
   templateUrl: './assignment-list-teacher.component.html',
   styleUrl: './assignment-list-teacher.component.css'
@@ -95,4 +96,15 @@ export class AssignmentListTeacherComponent implements OnInit {
     })
   }
 
+  onPageNotMarkedChange(event: PageEvent) {
+    this.pageNotMarked = event.pageIndex + 1;
+    this.limitNotMarked = event.pageSize;
+    this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
+  }
+
+  onPageMarkedChange(event: PageEvent) {
+    this.pageMarked = event.pageIndex + 1;
+    this.limitMarked = event.pageSize;
+    this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+  }
 }
