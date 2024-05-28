@@ -60,7 +60,10 @@ export class SidebarComponent implements OnInit {
   }
 
   goToStudentList() {
-    console.log("ato");
     this.router.navigate(['/students']);
+  }
+
+  goToTeacherList() {
+    this.router.navigate(['/teachers']);
   }
 }
