@@ -3,23 +3,27 @@
     <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New assignment</button>
   </a>
 </div>
+
 <div class="container">
   <div class="column">
     <h2>List of not rated assignments</h2>
 
     <mat-paginator
-      [length]="totalDocsNotMarked"
-      [pageSize]="limitNotMarked"
-      [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page"
-      (page)="onPageNotMarkedChange($event)"
-    >
-    </mat-paginator>
+    [length]="totalPagesNotMarked"
+    [pageSize]="limitNotMarked"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Select page">
+  </mat-paginator>
 
     <table
       mat-table
       [dataSource]="assignmentNotMarked"
-      class="mat-elevation-z8"
+      class="mat-elevation-z8 cdk-drag-preview"
+      cdkDropList
+      #listNotMarked="cdkDropList"
+      [cdkDropListData]="assignmentNotMarked"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listMarked]"
     >
 
       <ng-container matColumnDef="title">
@@ -62,7 +66,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag></tr>
 
     </table>
 
@@ -72,18 +76,21 @@
     <h2>List of noted assignments</h2>
 
     <mat-paginator
-      [length]="totalDocsMarked"
+      [length]="totalPagesMarked"
       [pageSize]="limitMarked"
       [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page"
-      (page)="onPageMarkedChange($event)"
-    >
+      aria-label="Select page">
     </mat-paginator>
 
     <table
       mat-table
       [dataSource]="assignmentMarked"
-      class="mat-elevation-z8"
+      class="mat-elevation-z8 cdk-drag-preview"
+      cdkDropList
+      #listMarked="cdkDropList"
+      [cdkDropListData]="assignmentMarked"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[listNotMarked]"
     >
 
       <ng-container matColumnDef="title">
@@ -126,7 +133,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns1;" cdkDrag></tr>
 
     </table>
 

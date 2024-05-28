@@ -8,13 +8,27 @@ import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assignment-list-teacher',
   standalone: true,
-  imports: [MatTableModule, DatePipe, MatButtonModule,
-    RouterLink, MatIconModule, MatPaginatorModule
+  imports: [
+    MatTableModule,
+    DatePipe,
+    MatButtonModule,
+    RouterLink,
+    MatIconModule,
+    CdkDropList,
+    CdkDrag,
+    MatPaginatorModule
   ],
   templateUrl: './assignment-list-teacher.component.html',
   styleUrl: './assignment-list-teacher.component.css'
@@ -96,15 +110,32 @@ export class AssignmentListTeacherComponent implements OnInit {
     })
   }
 
-  onPageNotMarkedChange(event: PageEvent) {
-    this.pageNotMarked = event.pageIndex + 1;
-    this.limitNotMarked = event.pageSize;
-    this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-  }
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
 
-  onPageMarkedChange(event: PageEvent) {
-    this.pageMarked = event.pageIndex + 1;
-    this.limitMarked = event.pageSize;
-    this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+      var item = event.container.data[event.currentIndex];
+      item.isMark = event.container.data === this.assignmentMarked;
+      console.log('item', item);
+
+      this.assignmentService.updateAssignment(item)
+      .subscribe({
+        next: data => {
+          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        },
+        error: (e) => {
+          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+        }
+      })
+    }
   }
 }
