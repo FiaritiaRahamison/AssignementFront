@@ -5,7 +5,7 @@
 </div>
 
 <div class="card-container">
-  <div class="card" *ngFor="let student of students | slice: (page-1) * limit : (page-1) * limit + limit; let index = index">
+  <div class="card" *ngFor="let student of students; let index = index">
     <mat-card class="student-card">
       <img mat-card-image src="/assets/images/user2.jpg" alt="Photo of a Shiba Inu">
       <br>
@@ -26,7 +26,7 @@
 <mat-paginator
   [length]="totalDoc"
   [pageSize]="limit"
-  [pageSizeOptions]="[8, 12]"
+  [pageSizeOptions]="[4, 8, 12]"
   (page)="onPageChange($event)"
 >
 </mat-paginator>
