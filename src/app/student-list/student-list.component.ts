@@ -6,6 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { UsersService } from '../shared/users.service';
 import { User } from '../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { TitleService } from '../shared/title.service';
 
 @Component({
   selector: 'app-student-list',
@@ -31,7 +32,8 @@ export class StudentListComponent implements OnInit {
   hasPrevPage!: boolean;
 
   constructor(
-    private userService: UsersService
+    private userService: UsersService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class StudentListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.titleService.changeTitle(`List of students`);
       this.getStudents(this.page, this.limit);
     }
   }

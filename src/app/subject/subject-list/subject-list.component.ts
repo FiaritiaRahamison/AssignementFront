@@ -8,6 +8,7 @@ import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subject } from '../../models/subject';
 import  {RouterLink} from '@angular/router';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'app-subject-list',
@@ -32,7 +33,8 @@ export class SubjectListComponent implements OnInit {
   hasPrevPage!: boolean;
 
   constructor(
-    private subjectService: SubjectServiceService
+    private subjectService: SubjectServiceService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,7 @@ export class SubjectListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.titleService.changeTitle(`List of subjects`);
       this.getSubjects(this.page, this.limit);
     }
   }
