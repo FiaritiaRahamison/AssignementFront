@@ -24,7 +24,7 @@ export class UsersService {
     return this.http.get<User[]>(urlUser);
   }
 
-  // ajoute un assignment et retourne une confirmation
+  // ajoute un user et retourne une confirmation
   addUser(user:UserModel):Observable<any> {
     const urlUser = `${this.server.getUrl()}/api/users`;
 
@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   peuplerBDUsers():Observable<any> {
-    let appelsVersAddAssignment:Observable<any>[] = [];
+    let appelsVersAddUser:Observable<any>[] = [];
 
     bdInitialUsers.forEach(u => {
       const newUser = new UserModel();
@@ -46,10 +46,10 @@ export class UsersService {
       newUser.photo=u.photo;
       newUser.role=u.role;
 
-      appelsVersAddAssignment.push(this.addUser(newUser))
+      appelsVersAddUser.push(this.addUser(newUser))
     });
 
-    return forkJoin(appelsVersAddAssignment);
+    return forkJoin(appelsVersAddUser);
   }
 
 }

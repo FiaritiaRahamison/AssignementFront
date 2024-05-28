@@ -70,14 +70,4 @@ export class AuthenticationComponent implements OnInit {
       });
     }
   }
-  genererDonneesUsers() {
-    // VERSION AVEC Observable
-    this.usersService.peuplerBDUsers()
-    .subscribe(() => {
-      console.log("Données générées pour users!");
-      window.location.reload();
-      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-      // this.router.navigate(['/home'], {replaceUrl:true});
-    });
-  }
 }

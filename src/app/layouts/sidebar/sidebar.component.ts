@@ -10,11 +10,14 @@ import {MatListModule, MatNavList} from '@angular/material/list';
 import { Router } from '@angular/router';
 import { User } from '../../models/token';
 import { CommonModule } from '@angular/common';
+import { UsersService } from '../../shared/users.service';
+import { SubjectsService } from '../../shared/subjects.service';
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    MatToolbarModule,
+  MatToolbarModule,
     MatSidenavModule,
     FormsModule,
     ReactiveFormsModule,
@@ -40,7 +43,9 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private router : Router
+    private router : Router,
+    private usersService: UsersService,
+    private subjectService: SubjectsService
   ) {}
 
   ngOnInit(): void {
@@ -69,5 +74,27 @@ export class SidebarComponent implements OnInit {
 
   goToSubjectList() {
     this.router.navigate(['/subjects']);
+  }
+
+  genererDonneesUsers() {
+    // VERSION AVEC Observable
+    this.usersService.peuplerBDUsers()
+    .subscribe(() => {
+      console.log("Données générées pour users!");
+      window.location.reload();
+      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+      // this.router.navigate(['/home'], {replaceUrl:true});
+    });
+  }
+
+  genererDonneesSubjects(){
+    // VERSION AVEC Observable
+    this.subjectService.peuplerBDSubjects()
+    .subscribe(() => {
+      console.log("Données générées pour subjects!");
+      window.location.reload();
+      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+      // this.router.navigate(['/home'], {replaceUrl:true});
+    });
   }
 }
