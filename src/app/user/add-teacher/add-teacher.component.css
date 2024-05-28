@@ -1,0 +1,9 @@
+.section-title{
+  margin-top: 50px;
+  text-align: center;
+}
+.form {
+  display:flex;
+  flex-direction: column;
+  margin: 10px 10% 0px 10%;
+}

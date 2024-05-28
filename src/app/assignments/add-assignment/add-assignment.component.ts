@@ -10,6 +10,7 @@ import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/token';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -36,7 +37,8 @@ export class AddAssignmentComponent implements OnInit{
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private router: Router
+    private router: Router,
+    private titleService: TitleService
   ) {
     this.minDate = new Date();
   }
@@ -47,6 +49,10 @@ ngOnInit(): void {
     this.userConnected = JSON.parse(data);
   } else {
     console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
+  }
+
+  if(this.userConnected) {
+    this.titleService.changeTitle(`Add an assignment`);
   }
 }
   onSubmit(event: any) {

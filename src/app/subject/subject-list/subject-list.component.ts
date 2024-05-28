@@ -3,24 +3,26 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { UsersService } from '../shared/users.service';
-import { User } from '../models/token';
+import { SubjectServiceService } from '../../shared/subject-service.service';
+import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { Subject } from '../../models/subject';
+import  {RouterLink} from '@angular/router';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
-  selector: 'app-student-list',
+  selector: 'app-subject-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule
-  ],
-  templateUrl: './student-list.component.html',
-  styleUrl: './student-list.component.css'
+    MatIconModule, MatPaginatorModule, RouterLink],
+  templateUrl: './subject-list.component.html',
+  styleUrl: './subject-list.component.css'
 })
-export class StudentListComponent implements OnInit {
+export class SubjectListComponent implements OnInit {
 
   userConnected!: User;
 
-  students: User[] = [];
+  subjects: Subject[] = [];
   page = 1;
   limit = 8;
   totalDoc!: number;
@@ -31,7 +33,8 @@ export class StudentListComponent implements OnInit {
   hasPrevPage!: boolean;
 
   constructor(
-    private userService: UsersService
+    private subjectService: SubjectServiceService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
@@ -43,34 +46,28 @@ export class StudentListComponent implements OnInit {
     }
 
     if(this.userConnected) {
-      this.getStudents(this.page, this.limit);
+      this.titleService.changeTitle(`List of subjects`);
+      this.getSubjects(this.page, this.limit);
     }
   }
 
-  getStudents(page: number, limit: number) {
-    this.userService.getUsers(page, limit)
+  getSubjects(page: number, limit: number) {
+    this.subjectService.getSubjects(page, limit)
     .subscribe((data) => {
-      this.students = data.docs;
+      this.subjects = data.docs;
       this.totalDoc = data.totalDocs;
       this.totalPage = data.totalPages;
       this.nextPage = data.nextPage;
       this.prevPage = data.prevPage;
       this.hasNextPage = data.hasNextPage;
       this.hasPrevPage = data.hasPrevPage;
-    });
+    })
   }
 
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.getStudents(this.page, this.limit);
+    this.getSubjects(this.page, this.limit);
   }
 
-  // get startIndex(): number {
-  //   return this.currentPageIndex * this.pageSize;
-  // }
-
-  // get endIndex(): number {
-  //   return this.startIndex + this.pageSize;
-  // }
 }

@@ -1,6 +1,6 @@
 <div class="btnAjout" *ngIf="userConnected.role == 3">
-  <a routerLink="">
-    <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New student</button>
+  <a routerLink="/teachers/add">
+    <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New teacher</button>
   </a>
 </div>
 
@@ -13,12 +13,12 @@
 </mat-paginator>
 
 <div class="card-container">
-  <div class="card" *ngFor="let student of students; let index = index">
+  <div class="card" *ngFor="let teacher of teachers; let index = index">
     <mat-card class="student-card">
-      <img mat-card-image src="/assets/images/user2.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image src="/assets/images/books.jpg" alt="Photo of a Shiba Inu">
       <br>
       <mat-card-content>
-        <p style="text-align: center;">{{ student.name }} {{ student.firstname }}</p>
+        <p style="text-align: center;">{{ teacher.name }} {{ teacher.firstname }}</p>
       </mat-card-content>
       <mat-card-actions *ngIf="userConnected.role == 3">
         <button mat-stroked-button color="primary">

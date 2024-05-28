@@ -8,9 +8,12 @@ import { AssignmentListComponent } from './assignments/assignment-list/assignmen
 import { AssignmentListTeacherComponent } from './assignments/assignment-list-teacher/assignment-list-teacher.component';
 import { AssignmentListAdminComponent } from './assignments/assignment-list-admin/assignment-list-admin.component';
 import { ProfileComponent } from './profile/profile.component';
-import { StudentListComponent } from './student-list/student-list.component';
-import { TeacherListComponent } from './teacher-list/teacher-list.component';
-import { SubjectListComponent } from './subject-list/subject-list.component';
+import { StudentListComponent } from './user/student-list/student-list.component';
+import { TeacherListComponent } from './user/teacher-list/teacher-list.component';
+import { SubjectListComponent } from './subject/subject-list/subject-list.component';
+import { AddSubjectComponent } from './subject/add-subject/add-subject.component';
+import { AddTeacherComponent } from './user/add-teacher/add-teacher.component';
+import { AddStudentComponent } from './user/add-student/add-student.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -25,6 +28,9 @@ export const routes: Routes = [
   { path: "students", component: StudentListComponent},
   { path: "teachers", component: TeacherListComponent},
   { path: "subjects", component: SubjectListComponent},
+  { path: "subjects/add", component: AddSubjectComponent},
+  { path: "teachers/add", component: AddTeacherComponent},
+  { path: "students/add", component: AddStudentComponent},
 
   {
     path: "assignment/:id/edit",
