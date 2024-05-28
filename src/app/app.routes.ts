@@ -10,6 +10,7 @@ import { AssignmentListAdminComponent } from './assignments/assignment-list-admi
 import { ProfileComponent } from './profile/profile.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';
+import { SubjectListComponent } from './subject-list/subject-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: "user/profile", component: ProfileComponent},
   { path: "students", component: StudentListComponent},
   { path: "teachers", component: TeacherListComponent},
+  { path: "subjects", component: SubjectListComponent},
 
   {
     path: "assignment/:id/edit",

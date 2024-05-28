@@ -66,4 +66,8 @@ export class SidebarComponent implements OnInit {
   goToTeacherList() {
     this.router.navigate(['/teachers']);
   }
+
+  goToSubjectList() {
+    this.router.navigate(['/subjects']);
+  }
 }
