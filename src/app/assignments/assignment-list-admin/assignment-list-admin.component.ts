@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { User } from '../../models/token';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import  { RouterLink } from '@angular/router';
@@ -100,5 +100,11 @@ export class AssignmentListAdminComponent implements OnInit {
         console.log("not delete");
       }
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.limit = event.pageSize;
+    this.getAssignments(this.page, this.limit);
   }
 }
