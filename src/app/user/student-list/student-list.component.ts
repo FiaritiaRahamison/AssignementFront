@@ -3,23 +3,25 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { UsersService } from '../shared/users.service';
-import { User } from '../models/token';
+import { UsersService } from '../../shared/users.service';
+import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { TitleService } from '../shared/title.service';
+import { TitleService } from '../../shared/title.service';
 
 @Component({
-  selector: 'app-teacher-list',
+  selector: 'app-student-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule],
-  templateUrl: './teacher-list.component.html',
-  styleUrl: './teacher-list.component.css'
+    MatIconModule, MatPaginatorModule
+  ],
+  templateUrl: './student-list.component.html',
+  styleUrl: './student-list.component.css'
 })
-export class TeacherListComponent implements OnInit {
+export class StudentListComponent implements OnInit {
+
   userConnected!: User;
 
-  teachers: User[] = [];
+  students: User[] = [];
   page = 1;
   limit = 8;
   totalDoc!: number;
@@ -43,15 +45,15 @@ export class TeacherListComponent implements OnInit {
     }
 
     if(this.userConnected) {
-      this.titleService.changeTitle(`List of teachers`);
-      this.getTeachers(this.page, this.limit);
+      this.titleService.changeTitle(`List of students`);
+      this.getStudents(this.page, this.limit);
     }
   }
 
-  getTeachers(page: number, limit: number) {
+  getStudents(page: number, limit: number) {
     this.userService.getUsers(page, limit)
     .subscribe((data) => {
-      this.teachers = data.docs;
+      this.students = data.docs;
       this.totalDoc = data.totalDocs;
       this.totalPage = data.totalPages;
       this.nextPage = data.nextPage;
@@ -64,6 +66,14 @@ export class TeacherListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.getTeachers(this.page, this.limit);
+    this.getStudents(this.page, this.limit);
   }
+
+  // get startIndex(): number {
+  //   return this.currentPageIndex * this.pageSize;
+  // }
+
+  // get endIndex(): number {
+  //   return this.startIndex + this.pageSize;
+  // }
 }

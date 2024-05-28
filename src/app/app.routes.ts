@@ -8,8 +8,8 @@ import { AssignmentListComponent } from './assignments/assignment-list/assignmen
 import { AssignmentListTeacherComponent } from './assignments/assignment-list-teacher/assignment-list-teacher.component';
 import { AssignmentListAdminComponent } from './assignments/assignment-list-admin/assignment-list-admin.component';
 import { ProfileComponent } from './profile/profile.component';
-import { StudentListComponent } from './student-list/student-list.component';
-import { TeacherListComponent } from './teacher-list/teacher-list.component';
+import { StudentListComponent } from './user/student-list/student-list.component';
+import { TeacherListComponent } from './user/teacher-list/teacher-list.component';
 import { SubjectListComponent } from './subject/subject-list/subject-list.component';
 import { AddSubjectComponent } from './subject/add-subject/add-subject.component';
 
