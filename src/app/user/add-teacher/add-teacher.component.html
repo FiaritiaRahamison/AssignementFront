@@ -1,1 +1,24 @@
-<p>add-teacher works!</p>
+<h1 class="section-title">New teacher</h1>
+<form
+  ngForm
+  #subjectForm
+  class="form"
+>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Firstname</mat-label>
+    <input matInput required>
+  </mat-form-field>
+
+  <button
+    mat-stroked-button
+    color="primary"
+  >
+    Add teacher
+  </button>
+
+</form>
