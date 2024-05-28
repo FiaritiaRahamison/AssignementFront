@@ -3,16 +3,17 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { SubjectServiceService } from '../shared/subject-service.service';
-import { User } from '../models/token';
+import { SubjectServiceService } from '../../shared/subject-service.service';
+import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Subject } from '../models/subject';
+import { Subject } from '../../models/subject';
+import  {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-subject-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule],
+    MatIconModule, MatPaginatorModule, RouterLink],
   templateUrl: './subject-list.component.html',
   styleUrl: './subject-list.component.css'
 })
