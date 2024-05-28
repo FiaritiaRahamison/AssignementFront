@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssignmentsService } from '../../shared/assignments.service';
-import { Assignment } from '../assignment.model';
+import { Assignment } from '../../models/assignment.model';
 import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';

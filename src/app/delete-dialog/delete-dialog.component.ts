@@ -7,7 +7,7 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { Assignment } from '../assignments/assignment.model';
+import { Assignment } from '../models/assignment.model';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 

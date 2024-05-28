@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { User } from '../../models/token';
-import { Assignment } from '../assignment.model';
+import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';

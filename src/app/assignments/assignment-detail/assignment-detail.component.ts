@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Assignment } from '../assignment.model';
+import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import  {RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/auth.service';
