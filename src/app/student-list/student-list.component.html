@@ -4,6 +4,14 @@
   </a>
 </div>
 
+<mat-paginator
+  [length]="totalDoc"
+  [pageSize]="limit"
+  [pageSizeOptions]="[4, 8, 12]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>
+
 <div class="card-container">
   <div class="card" *ngFor="let student of students; let index = index">
     <mat-card class="student-card">
@@ -23,10 +31,4 @@
     </mat-card>
   </div>
 </div>
-<mat-paginator
-  [length]="totalDoc"
-  [pageSize]="limit"
-  [pageSizeOptions]="[4, 8, 12]"
-  (page)="onPageChange($event)"
->
-</mat-paginator>
+

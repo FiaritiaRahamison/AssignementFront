@@ -4,10 +4,18 @@
   </a>
 </div>
 
+<mat-paginator
+  [length]="totalDoc"
+  [pageSize]="limit"
+  [pageSizeOptions]="[4, 8, 12]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>
+
 <div class="card-container">
   <div class="card" *ngFor="let subject of subjects; let index = index">
     <mat-card class="student-card">
-      <img mat-card-image src="/assets/images/user2.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image src="/assets/images/bg1.jpg" alt="Photo of a Shiba Inu">
       <br>
       <mat-card-content>
         <p style="text-align: center;">{{ subject.name }}</p>
@@ -23,10 +31,4 @@
     </mat-card>
   </div>
 </div>
-<mat-paginator
-  [length]="totalDoc"
-  [pageSize]="limit"
-  [pageSizeOptions]="[4, 8, 12]"
-  (page)="onPageChange($event)"
->
-</mat-paginator>
+

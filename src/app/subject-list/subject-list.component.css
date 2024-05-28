@@ -18,3 +18,7 @@
   max-width: 250px;
   height: auto;
 }
+
+mat-paginator {
+  margin: 10px;
+}
