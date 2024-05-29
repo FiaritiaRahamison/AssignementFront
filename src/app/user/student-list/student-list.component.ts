@@ -24,7 +24,7 @@ export class StudentListComponent implements OnInit {
 
   students: User[] = [];
   page = 1;
-  limit = 8;
+  limit = 10;
   totalDoc!: number;
   totalPage!: number;
   nextPage!: number;

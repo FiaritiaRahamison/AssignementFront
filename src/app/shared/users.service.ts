@@ -53,7 +53,7 @@ export class UsersService {
     );
   }
 
-    // enregistre un nouvek utilisateur
+    // enregistre un nouvel utilisateur
     createUser(user:User):Observable<any> {
       this.logService.log(user.login, "ajouté");
       //return of("Assignment ajouté avec succès");
