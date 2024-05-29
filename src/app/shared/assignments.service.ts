@@ -160,6 +160,22 @@ export class AssignmentsService {
     );
   }
 
+  addNoteAssignment(id: string, mark: number, remark: string) {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/result/${id}`;
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`,
+    });
+
+    return this.http.post<ApiResponse>(urlAssignment, {mark: mark, remark: remark }, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment) => {
+      })
+    );
+  }
+
   deleteAssignment(assignmentId: string): Observable<any>  {
     const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignmentId}`;
 

@@ -15,4 +15,5 @@ export class Assignment {
   link?: string;
   author!: string;
   subject!: Subject;
+  results?: any;
 }

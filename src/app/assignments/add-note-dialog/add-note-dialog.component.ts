@@ -49,11 +49,10 @@ export class AddNoteDialogComponent {
   onSubmit(event: any) {
     if((this.mark == 0)) return;
 
-    const updatedAssignment = { ...this.data.assignment, mark: this.mark, remark: this.remark, isMark: true };
+    const updatedAssignment = this.data.assignment;
 
-    // TODO: Logique de modification d'assignment ici
     this.assignmentsService
-      .updateAssignment(updatedAssignment)
+      .addNoteAssignment(updatedAssignment.results._id, this.mark, this.remark)
       .subscribe(response => {
         console.log(response);
         this.dialogRef.close(updatedAssignment);

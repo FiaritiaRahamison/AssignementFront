@@ -120,8 +120,6 @@ export class AssignmentDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         console.log('The note is:', result);
-        // Vous pouvez maintenant traiter la note ajoutée ici, par exemple :
-        // this.assignmentsService.updateAssignmentNote(this.assignmentTransmis.id, result);
       }
     });
   }
