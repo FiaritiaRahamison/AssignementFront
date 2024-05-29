@@ -72,4 +72,34 @@ export class UsersService {
       );
     }
 
+    getDetailUser(id: string|undefined): Observable<any> {
+      const urlAssignment = `${this.server.getUrl()}/api/users/${id}`;
+
+      const bearerToken = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+
+      return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+        map((response) => response.data),
+        tap((data: User) => {
+
+        })
+      );
+    }
+
+    updateUser(user: User){
+      const url = `${this.server.getUrl()}/api/users/${user._id}`;
+      const bearerToken = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+      return this.http.put<ApiResponse>(`${url}`, user, {headers}).pipe(
+        map((response) => response.data),
+        tap((data: User) => {
+        })
+      );
+    }
+
 }
