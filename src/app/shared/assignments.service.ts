@@ -10,6 +10,7 @@ import { Server } from '../environment/server';
 import { bdInitialAssignments } from './data';
 import { ApiResponse } from '../models/api-response';
 import { response } from 'express';
+import { Note } from '../models/note';
 
 @Injectable({
   providedIn: 'root'
@@ -223,6 +224,22 @@ export class AssignmentsService {
 
     // return this.http.patch<Assignment>(urlAssignment, assignment);
     return this.http.put(`${urlAssignment}`, assignment);
+  }
+
+  getAverageMarkStudent(): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/average`;
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Note[]) => {
+      })
+    );
   }
 
 }
