@@ -17,3 +17,14 @@ top:var(--mat-toolbar-standard-height);
   margin-left: 20px;
   cursor: pointer;
 }
+
+.matListItem {
+  transition: background-color 0.3s ease;
+}
+
+.matListItem:hover {
+  .menuItem {
+    color: #8c00ff; /* Change to your desired hover color */
+  }
+}
+

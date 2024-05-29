@@ -5,46 +5,39 @@
 <!-- implement with privileges-->
       <mat-list>
 
-        <div mat-subheader>COMMON</div>
-        <mat-list-item>
+        <mat-list-item class="matListItem">
           <a class="menuItem" (click)="goToAssignmentList()">Assignments</a>
         </mat-list-item>
 
         <div *ngIf="userConnected.role == 1">
-          <mat-divider></mat-divider>
-          <div mat-subheader>STUDENTS</div>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem">Subjects</a>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem">Notes</a>
           </mat-list-item>
         </div>
 
         <div *ngIf="userConnected.role == 2">
-          <mat-divider></mat-divider>
-          <div mat-subheader>TEACHERS</div>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem" (click)="goToStudentList()">Students</a>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem">Notes</a>
           </mat-list-item>
         </div>
 
         <div *ngIf="userConnected.role == 3">
-          <mat-divider></mat-divider>
-          <div mat-subheader>ADMIN</div>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem" (click)="goToTeacherList()">Teachers</a>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem" (click)="goToStudentList()">Students</a>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem" (click)="goToSubjectList()">Subjects</a>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item class="matListItem">
             <a class="menuItem">Notes</a>
           </mat-list-item>
         </div>
