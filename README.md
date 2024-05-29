@@ -37,3 +37,11 @@ Ce projet consiste à développer une interface pour gérer des assignments.
 ## Technologies utilisées
 * [Angular](https://angular.dev/) - Framework client
 * CSS - Mise en forme
+
+## Données d'accès au projet 
+* Elève(s) : sbrabender14/password, pirnys0/password, rbucky2/0000
+* Professeur(s) : kocarran1/password, acuppleditche/123456!, ojanningw/0000
+* Administrateur : admin/admin
+
+## URL du projet frontend hébergé sur render.com
+https://assignementfront.onrender.com/home
