@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { ApiResponse } from '../models/api-response';
 import { response } from 'express';
 import { map, tap } from 'rxjs/operators';
+import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class UsersService {
 
   constructor(
     private http:HttpClient,
-    private server: Server
+    private server: Server,
+    private logService:LoggingService,
   ){}
 
   getTeachers(page: number, limit: number): Observable<any> {
@@ -50,5 +52,24 @@ export class UsersService {
       })
     );
   }
+
+    // enregistre un nouvel utilisateur
+    createUser(user:User):Observable<any> {
+      this.logService.log(user.login, "ajouté");
+      //return of("Assignment ajouté avec succès");
+      const url = `${this.server.getUrl()}/api/users`;
+      const bearerToken = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `bearer ${bearerToken}`,
+      });
+
+      return this.http.post<ApiResponse>(url, user, { headers }).pipe(
+        map((response) => response.data),
+        tap((data: User) => {
+
+        })
+      );
+    }
 
 }
