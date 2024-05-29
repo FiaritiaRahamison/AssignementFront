@@ -5,40 +5,45 @@
     <mat-card-header>
       <mat-card-title>New student</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" required>
-        </mat-form-field>
+    <mat-card-content class="form-content">
+      <div class="form-inputs">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Firstname</mat-label>
+            <input matInput formControlName="firstname" required>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="login" required>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" required>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-group">
+          <input formControlName="image" id="file" type="file" class="form-control hidden" (change)="onFileChange($event)">
+          <label for="file" class="custom-file-upload">
+            Choose file
+          </label>
+        </div>
       </div>
 
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label>Firstname</mat-label>
-          <input matInput formControlName="firstname" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label>Login</mat-label>
-          <input matInput formControlName="login" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput formControlName="password" type="password" required>
-        </mat-form-field>
-      </div>
-
-      <div class="form-group">
-        <input formControlName="image" id="file" type="file" class="form-control hidden" (change)="onFileChange($event)">
-        <label for="file" class="custom-file-upload">
-          Choose file
-        </label>
+      <div class="form-preview">
         <div *ngIf="base64Image">
           <h3>Preview:</h3>
           <img [src]="base64Image" alt="Image Preview" style="width:200px; height: auto;">

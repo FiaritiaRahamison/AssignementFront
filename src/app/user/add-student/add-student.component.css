@@ -60,3 +60,17 @@ mat-card-header {
   justify-content: center;
   margin: 10px 0px 40px 0px;
 }
+
+.form-content {
+  display: flex;
+}
+
+.form-inputs {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.form-preview {
+  flex-grow: 0;
+}
+
