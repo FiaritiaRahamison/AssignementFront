@@ -34,4 +34,21 @@ export class UsersService {
     );
   }
 
+  getStudents(page: number, limit: number): Observable<any> {
+    const urlUser = `${this.server.getUrl()}/api/students?page=${page}&limit=${limit}`;
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlUser, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: User[]) => {
+
+      })
+    );
+  }
+
 }

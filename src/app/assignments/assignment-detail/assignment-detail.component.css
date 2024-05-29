@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  min-height: 50vh;
+  /* min-height: 50vh; */
   max-width: 40%;
   margin: 0 auto;
   text-align: center;

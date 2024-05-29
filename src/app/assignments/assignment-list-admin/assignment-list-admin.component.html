@@ -31,7 +31,7 @@
       <th mat-header-cell *matHeaderCellDef> Subject </th>
       <td mat-cell *matCellDef="let element">
         <div>
-          <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+          <img [src]="element.subject.photo" alt="Subject Image" class="subject-image">
         </div>
         {{element.subject.name}}
       </td>
@@ -41,7 +41,7 @@
       <th mat-header-cell *matHeaderCellDef> Teacher </th>
       <td mat-cell *matCellDef="let element">
         <div>
-          <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+          <img [src]="element.subject.teacher.photo" alt="Subject Image" class="subject-image">
         </div>
          {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
       </td>

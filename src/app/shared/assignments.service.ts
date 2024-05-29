@@ -57,9 +57,20 @@ export class AssignmentsService {
   }
 
   getDetailAssignment(id: string|undefined): Observable<any> {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/${id}`;
+    const urlAssignment = `${this.server.getUrl()}/api/assignment/${id}`;
 
-    return this.http.get<Assignment>(urlAssignment);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment) => {
+
+      })
+    );
   }
 
   getAssignments(page: number, limit: number): Observable<any> {

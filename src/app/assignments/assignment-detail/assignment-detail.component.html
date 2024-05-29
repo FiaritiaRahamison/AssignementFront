@@ -14,14 +14,14 @@
 
     <div class="detail">
       <div mat-card-avatar>
-          <img src="/assets/images/books.jpg" alt="Subject Image" class="example-header-image">
+          <img [src]="assignmentTransmis.subject.photo" alt="Subject Image" class="example-header-image">
       </div>
       <p style="padding-left: 15%;">{{ assignmentTransmis.subject.name }}</p>
     </div>
 
     <div class="detail">
       <div mat-card-avatar>
-          <img src="/assets/images/user2.jpg" alt="Subject Image" class="example-header-image">
+          <img [src]="assignmentTransmis.subject.teacher.photo" alt="Teacher Image" class="example-header-image">
       </div>
       <p style="padding-left: 15%;">{{ assignmentTransmis.subject.teacher.name }}</p>
       <p style="padding-left: 2%;">{{ assignmentTransmis.subject.teacher.firstname }}</p>
@@ -45,13 +45,9 @@
       }
     </div>
 
-    <div class="content">
+    <div class="content" *ngIf="assignmentTransmis.remark">
       <p style="font-weight: bold;">Remark(s): </p>
-      @if(assignmentTransmis.remark) {
-        <p style="padding-left: 2%;">{{ assignmentTransmis.remark }}</p>
-      } @else {
-        <p style="padding-left: 2%;">There are no comments</p>
-      }
+      <p style="padding-left: 2%;">{{ assignmentTransmis.remark }}</p>
     </div>
   </mat-card-content>
 
@@ -62,21 +58,6 @@
         <button *ngIf="isMark" mat-stroked-button color="accent" (click)="openAddNoteDialog(assignmentTransmis)"> <mat-icon>check</mat-icon> Mark</button>
     </div>
   </mat-card-actions>
-
-
-  <!-- <mat-card-actions class="container">
-    <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
-    <button mat-raised-button color="warn" (click)="onDelete()">
-      DELETE
-    </button>
-    <nav>
-      <a routerLink="edit">
-        <button mat-raised-button color="primary">
-          EDIT
-        </button>
-      </a>
-    </nav>
-  </mat-card-actions> -->
 
 </mat-card>
 
