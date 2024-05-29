@@ -15,4 +15,5 @@ top:var(--mat-toolbar-standard-height);
 .menuItem {
   text-decoration: none;
   margin-left: 20px;
+  cursor: pointer;
 }
