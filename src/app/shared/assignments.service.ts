@@ -44,16 +44,38 @@ export class AssignmentsService {
   //   return this.http.put<Assignment>(urlAssignment, assignment);
   // }
 
-  getAssignmentTeacherNotNoted(name: string, firstname: string, page: number, limit: number): Observable<any> {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/teacher/isNotMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
+  getAssignmentTeacherNotNoted(page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/done?page=${page}&limit=${limit}`;
 
-    return this.http.get<Assignment[]>(urlAssignment);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment[]) => {
+
+      })
+    );
   }
 
-  getAssignmentTeacherNoted(name: string, firstname: string, page: number, limit: number): Observable<any> {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/teacher/isMarked?name=${name}&firstname=${firstname}&page=${page}&limit=${limit}`;
+  getAssignmentTeacherNoted(page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/marked?page=${page}&limit=${limit}`;
 
-    return this.http.get<Assignment[]>(urlAssignment);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment[]) => {
+
+      })
+    );
   }
 
   getDetailAssignment(id: string|undefined): Observable<any> {

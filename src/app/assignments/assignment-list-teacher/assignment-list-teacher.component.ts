@@ -76,15 +76,15 @@ export class AssignmentListTeacherComponent implements OnInit {
     }
     if(this.userConnected) {
       this.titleService.changeTitle('List of assignments');
-      this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-      this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+      this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+      this.getAssignmentMarked(this.pageMarked, this.limitMarked);
     }
 
   }
 
-  getAssignmentNotMarked(name: string, firstname: string, page: number, limit: number) {
+  getAssignmentNotMarked(page: number, limit: number) {
 
-    this.assignmentService.getAssignmentTeacherNotNoted(name, firstname, page, limit)
+    this.assignmentService.getAssignmentTeacherNotNoted(page, limit)
     .subscribe((data) => {
       this.assignmentNotMarked = data.docs;
       this.totalDocsNotMarked = data.totalDocs;
@@ -96,9 +96,9 @@ export class AssignmentListTeacherComponent implements OnInit {
     })
   }
 
-  getAssignmentMarked(name: string, firstname: string, page: number, limit: number) {
+  getAssignmentMarked(page: number, limit: number) {
 
-    this.assignmentService.getAssignmentTeacherNoted(name, firstname, page, limit)
+    this.assignmentService.getAssignmentTeacherNoted(page, limit)
     .subscribe((data) => {
       this.assignmentMarked = data.docs;
       this.totalDocsMarked = data.totalDocs;
@@ -128,12 +128,12 @@ export class AssignmentListTeacherComponent implements OnInit {
       this.assignmentService.updateAssignment(item)
       .subscribe({
         next: data => {
-          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+          this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.pageMarked, this.limitMarked);
         },
         error: (e) => {
-          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+          this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+          this.getAssignmentMarked(this.pageMarked, this.limitMarked);
         }
       })
     }
