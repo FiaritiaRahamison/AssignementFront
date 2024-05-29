@@ -8,7 +8,9 @@
       [length]="totalDocsNotDone"
       [pageSize]="limitNotDone"
       [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page">
+      aria-label="Select page"
+      (page)="onPageChangeNotDone($event)"
+    >
     </mat-paginator>
 
     <table
@@ -36,7 +38,7 @@
         <th mat-header-cell *matHeaderCellDef> Subject </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.photo" alt="Subject Image" class="subject-image">
           </div>
           {{element.subject.name}}
         </td>
@@ -46,7 +48,7 @@
         <th mat-header-cell *matHeaderCellDef> Teacher </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.teacher.photo" alt="Teacher Image" class="subject-image">
           </div>
            {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
         </td>
@@ -75,7 +77,9 @@
       [length]="totalDocsDone"
       [pageSize]="limitDone"
       [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page">
+      aria-label="Select page"
+      (page)="onPageChangeDone($event)"
+    >
     </mat-paginator>
 
     <table
@@ -86,7 +90,6 @@
       #listDone="cdkDropList"
       [cdkDropListData]="assignmentDone"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[listNotDone]"
     >
 
       <ng-container matColumnDef="title">
@@ -103,7 +106,7 @@
         <th mat-header-cell *matHeaderCellDef> Subject </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.photo" alt="Subject Image" class="subject-image">
           </div>
           {{element.subject.name}}
         </td>
@@ -113,7 +116,7 @@
         <th mat-header-cell *matHeaderCellDef> Teacher </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.teacher.photo" alt="Teacher Image" class="subject-image">
           </div>
            {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
         </td>
