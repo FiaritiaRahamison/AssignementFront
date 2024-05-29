@@ -14,6 +14,7 @@ import { SubjectListComponent } from './subject/subject-list/subject-list.compon
 import { AddSubjectComponent } from './subject/add-subject/add-subject.component';
 import { AddTeacherComponent } from './user/add-teacher/add-teacher.component';
 import { AddStudentComponent } from './user/add-student/add-student.component';
+import { AssignmentResultComponent } from './assignments/assignment-result/assignment-result.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const routes: Routes = [
   { path: "subjects/add", component: AddSubjectComponent},
   { path: "teachers/add", component: AddTeacherComponent},
   { path: "students/add", component: AddStudentComponent},
+  { path: "assignments/results/:id", component: AssignmentResultComponent},
 
   {
     path: "assignment/:id/edit",

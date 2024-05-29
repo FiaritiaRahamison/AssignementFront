@@ -9,6 +9,7 @@ import { Server } from '../environment/server';
 // importation des données de test
 import { bdInitialAssignments } from './data';
 import { ApiResponse } from '../models/api-response';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root'
@@ -140,6 +141,22 @@ export class AssignmentsService {
     return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
       map((response) => response.data),
       tap((data: Assignment[]) => {
+      })
+    );
+  }
+
+  getResultsAssignment(id: string|undefined): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/result/${id}`;
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment) => {
+        // console.log('Received data:', data);
       })
     );
   }
