@@ -18,6 +18,8 @@ import { AssignmentResultComponent } from './assignments/assignment-result/assig
 import { NoteStudentComponent } from './user/note-student/note-student.component';
 import { NoteTeacherComponent } from './user/note-teacher/note-teacher.component';
 import { NoteAdminComponent } from './user/note-admin/note-admin.component';
+import { EditStudentComponent } from './user/edit-student/edit-student.component';
+import { EditTeacherComponent } from './user/edit-teacher/edit-teacher.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,6 +33,8 @@ export const routes: Routes = [
   { path: "user/profile", component: ProfileComponent},
   { path: "students", component: StudentListComponent},
   { path: "teachers", component: TeacherListComponent},
+  { path: "student/edit/:id", component: EditStudentComponent},
+  { path: "teacher/edit/:id", component: EditTeacherComponent},
   { path: "subjects", component: SubjectListComponent},
   { path: "subjects/add", component: AddSubjectComponent},
   { path: "teachers/add", component: AddTeacherComponent},

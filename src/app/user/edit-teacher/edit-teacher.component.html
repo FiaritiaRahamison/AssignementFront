@@ -1,0 +1,52 @@
+<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="form-content">
+      <div class="form-inputs">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name"  [(ngModel)]="teacherTransmis.name">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Firstname</mat-label>
+            <input matInput formControlName="firstname" [(ngModel)]="teacherTransmis.firstname">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="login" [(ngModel)]="teacherTransmis.login">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <input formControlName="image" id="file" type="file" class="form-control hidden" (change)="onFileChange($event)">
+          <label for="file" class="custom-file-upload">
+            Choose file
+          </label>
+        </div>
+      </div>
+
+      <div class="form-preview">
+        <div>
+          <h3>Preview:</h3>
+          <img [src]="teacherTransmis.photo" alt="Image Preview" style="width:200px; height: auto;">
+          <input type="hidden" formControlName="photo" [(ngModel)]="teacherTransmis.photo"/>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-stroked-button class="addButton" color="primary" type="submit">Update teacher</button>
+    </mat-card-actions>
+
+  </mat-card>
+</form>
