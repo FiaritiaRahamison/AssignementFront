@@ -1,24 +1,38 @@
+<!-- src/app/student-form/student-form.component.html -->
 <h1 class="section-title">New student</h1>
 <form
-  ngForm
-  #subjectForm
-  class="form"
->
+[formGroup]="studentForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput required>
+    <input matInput formControlName="name" required>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Firstname</mat-label>
-    <input matInput required>
+    <input matInput formControlName="firstname" required>
   </mat-form-field>
 
-  <button
-    mat-stroked-button
-    color="primary"
-  >
-    Add student
-  </button>
+  <mat-form-field>
+    <mat-label>Login</mat-label>
+    <input matInput formControlName="login" required>
+  </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Role</mat-label>
+    <input matInput formControlName="role" required>
+  </mat-form-field>
+
+  <input formControlName="image" id="file" type="file" class="form-control" (change)="onFileChange($event)">
+  <div *ngIf="base64Image">
+    <h3>Preview:</h3>
+    <img [src]="base64Image" alt="Image Preview" style="width:200px; height: auto;">
+    <input type="hidden" formControlName="photo"/>
+
+  </div>
+  <button mat-stroked-button color="primary" type="submit">Add student</button>
 </form>
