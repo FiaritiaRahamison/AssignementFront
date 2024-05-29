@@ -194,9 +194,15 @@ export class AssignmentsService {
   }
 
   deleteAssignment(assignmentId: string): Observable<any>  {
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignmentId}`;
+    const urlAssignment = `${this.server.getUrl()}/api/assignment/${assignmentId}`;
 
-    return this.http.delete<any>(urlAssignment);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`,
+    });
+
+    return this.http.delete<any>(urlAssignment, { headers });
   }
 
     // ajoute un assignment et retourne une confirmation
