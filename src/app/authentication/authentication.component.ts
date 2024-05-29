@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { User } from '../models/token';
+import { UsersService } from '../shared/users.service';
 
 @Component({
   selector: 'app-authentication',
@@ -24,7 +25,7 @@ import { User } from '../models/token';
 export class AuthenticationComponent implements OnInit {
   hide = true;
 
-  username = '';
+  login = '';
   password = '';
   errorMessage!: string;
   authLoading = false;
@@ -32,7 +33,8 @@ export class AuthenticationComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router : Router
+    private router : Router,
+    private usersService: UsersService
   ){}
 
   ngOnInit(): void {
@@ -47,19 +49,19 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onSubmit() {
-    if((this.username == '') || (this.password == '')) {
+    if((this.login == '') || (this.password == '')) {
       this.errorMessage = 'The username and the password are required';
     } else {
       this.authLoading = true;
-      this.authService.logIn(this.username, this.password)
+      this.authService.logIn(this.login, this.password)
       .subscribe({
-        next: data => {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user", JSON.stringify(data.user));
+        next: response => {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
           this.authLoading = false;
-          if(data.user.role == 1) this.router.navigate(['/student/assignments']);
-          if(data.user.role == 2) this.router.navigate(['/teacher/assignments']);
-          if(data.user.role == 3) this.router.navigate(['/admin/assignments']);
+          if(response.data.user.role == 1) this.router.navigate(['/student/assignments']);
+          if(response.data.user.role == 2) this.router.navigate(['/teacher/assignments']);
+          if(response.data.user.role == 3) this.router.navigate(['/admin/assignments']);
         },
         error: (e) => {
           this.errorMessage = e?.error?.message;

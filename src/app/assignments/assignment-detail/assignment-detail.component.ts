@@ -71,15 +71,15 @@ export class AssignmentDetailComponent implements OnInit {
       if(userConnected.role == 3) {
         this.isEdit = true;
         this.isRemove = true;
-      } if(userConnected.role == 2) {
-        if(assignment?.subject.teacher._id == userConnected.id) {
-          this.isEdit = true;
-          this.isRemove = true;
-          if(!assignment?.isMark) {
-            this.isMark = true;
-          }
-        }
-      }
+      } // if(userConnected.role == 2) {
+      //   if(assignment?.subject.teacher._id == userConnected.id) {
+      //     this.isEdit = true;
+      //     this.isRemove = true;
+      //     if(!assignment?.isMark) {
+      //       this.isMark = true;
+      //     }
+      //   }
+      // }
     }
   }
 

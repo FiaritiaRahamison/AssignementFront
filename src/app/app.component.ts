@@ -12,6 +12,8 @@ import { ToolbarComponent } from './layouts/toolbar/toolbar.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './shared/auth.service';
+import { AssignmentsService } from './shared/assignments.service';
+import { UsersService } from './shared/users.service';
 
 @Component({
   selector: 'app-root',
@@ -34,10 +36,24 @@ import { AuthService } from './shared/auth.service';
   styleUrl: 'app.component.css'
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService
+  ) {}
 
   // Méthode pour vérifier si l'utilisateur est connecté
   public isUserLoggedIn(): boolean {
     return this.authService.isUserLoggedIn();
+  }
+
+  genererDonneesUsers() {
+    // VERSION AVEC Observable
+    this.usersService.peuplerBDUsers()
+    .subscribe(() => {
+      console.log("Données générées pour users!");
+      window.location.reload();
+      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+      // this.router.navigate(['/home'], {replaceUrl:true});
+    });
   }
 }
