@@ -1,0 +1,13 @@
+.subject-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.container {
+  margin: 20px;
+  width: 50%;
+  margin-left: 350px;
+}

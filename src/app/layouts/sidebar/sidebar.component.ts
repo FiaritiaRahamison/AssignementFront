@@ -74,4 +74,8 @@ export class SidebarComponent implements OnInit {
   goToStudentNote() {
     this.router.navigate(['/assignments/student/average']);
   }
+
+  goToTeacherNote() {
+    this.router.navigate(['/assignments/teacher/average']);
+  }
 }

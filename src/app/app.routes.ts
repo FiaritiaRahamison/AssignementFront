@@ -16,6 +16,7 @@ import { AddTeacherComponent } from './user/add-teacher/add-teacher.component';
 import { AddStudentComponent } from './user/add-student/add-student.component';
 import { AssignmentResultComponent } from './assignments/assignment-result/assignment-result.component';
 import { NoteStudentComponent } from './user/note-student/note-student.component';
+import { NoteTeacherComponent } from './user/note-teacher/note-teacher.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: "students/add", component: AddStudentComponent},
   { path: "assignments/results/:id", component: AssignmentResultComponent},
   { path: "assignments/student/average", component: NoteStudentComponent},
+  { path: "assignments/teacher/average", component: NoteTeacherComponent},
 
   {
     path: "assignment/:id/edit",
