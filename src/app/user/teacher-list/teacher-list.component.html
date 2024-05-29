@@ -21,9 +21,11 @@
         <p style="text-align: center;">{{ teacher.name }} {{ teacher.firstname }}</p>
       </mat-card-content>
       <mat-card-actions *ngIf="userConnected.role == 3">
-        <button mat-stroked-button color="primary">
-          <mat-icon>edit</mat-icon> Edit
-        </button>
+        <a [routerLink]="['/teacher/edit', teacher._id]">
+          <button mat-stroked-button color="primary">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        </a>
         <button mat-stroked-button color="warn" style="margin-left: 30px;">
           <mat-icon>delete_outline</mat-icon> Remove
         </button>

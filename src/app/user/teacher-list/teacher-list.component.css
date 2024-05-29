@@ -23,3 +23,9 @@
 mat-paginator {
   margin: 10px;
 }
+
+mat-card img {
+  height: 300px;
+  width: -webkit-fill-available;
+  align-self: center;
+}
