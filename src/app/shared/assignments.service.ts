@@ -258,4 +258,20 @@ export class AssignmentsService {
     );
   }
 
+  getAverageMarkAdmin(page: number, limit: number): Observable<any> {
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/subject/average?page=${page}&limit=${limit}`;
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Note[]) => {
+      })
+    );
+  }
+
 }
