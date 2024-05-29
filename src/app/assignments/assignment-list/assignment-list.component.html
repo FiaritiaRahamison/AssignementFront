@@ -2,13 +2,15 @@
 <div class="container">
 
   <div class="column">
-    <h2>List of unreturned assignments</h2>
+    <h2>List of assignments TODO</h2>
 
     <mat-paginator
       [length]="totalDocsNotDone"
       [pageSize]="limitNotDone"
       [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page">
+      aria-label="Select page"
+      (page)="onPageChangeNotDone($event)"
+    >
     </mat-paginator>
 
     <table
@@ -36,7 +38,7 @@
         <th mat-header-cell *matHeaderCellDef> Subject </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.photo" alt="Subject Image" class="subject-image">
           </div>
           {{element.subject.name}}
         </td>
@@ -46,7 +48,7 @@
         <th mat-header-cell *matHeaderCellDef> Teacher </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.teacher.photo" alt="Teacher Image" class="subject-image">
           </div>
            {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
         </td>
@@ -69,13 +71,15 @@
   </div>
 
   <div class="column">
-    <h2>List of rendered assignments</h2>
+    <h2>List of done assignments</h2>
 
     <mat-paginator
       [length]="totalDocsDone"
       [pageSize]="limitDone"
       [pageSizeOptions]="[5, 10, 25]"
-      aria-label="Select page">
+      aria-label="Select page"
+      (page)="onPageChangeDone($event)"
+    >
     </mat-paginator>
 
     <table
@@ -86,7 +90,6 @@
       #listDone="cdkDropList"
       [cdkDropListData]="assignmentDone"
       (cdkDropListDropped)="drop($event)"
-      [cdkDropListConnectedTo]="[listNotDone]"
     >
 
       <ng-container matColumnDef="title">
@@ -103,7 +106,7 @@
         <th mat-header-cell *matHeaderCellDef> Subject </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/books.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.photo" alt="Subject Image" class="subject-image">
           </div>
           {{element.subject.name}}
         </td>
@@ -113,7 +116,7 @@
         <th mat-header-cell *matHeaderCellDef> Teacher </th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <img src="/assets/images/user2.jpg" alt="Subject Image" class="subject-image">
+            <img [src]="element.subject.teacher.photo" alt="Teacher Image" class="subject-image">
           </div>
            {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}
         </td>
@@ -122,7 +125,7 @@
       <ng-container matColumnDef="option">
         <th mat-header-cell *matHeaderCellDef>  </th>
         <td mat-cell *matCellDef="let element">
-          <a [routerLink]="['/assignment', element._id]">
+          <a [routerLink]="['/assignments/results/', element.results._id]">
             <button mat-button color="primary"> <mat-icon>bookmark_border</mat-icon> Detail</button>
           </a>
         </td>
@@ -136,7 +139,7 @@
   </div>
 
   <div class="column">
-    <h2>List of noted assignments</h2>
+    <h2>List of marked assignments</h2>
 
     <mat-paginator
       [length]="totalDocsMarked"
@@ -159,18 +162,27 @@
 
       <ng-container matColumnDef="subject">
         <th mat-header-cell *matHeaderCellDef> Subject </th>
-        <td mat-cell *matCellDef="let element">{{element.subject.name}}</td>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <img [src]="element.subject.photo" alt="Student Image" class="subject-image">
+          </div>
+          {{element.subject.name}}</td>
       </ng-container>
 
       <ng-container matColumnDef="teacher">
         <th mat-header-cell *matHeaderCellDef> Teacher </th>
-        <td mat-cell *matCellDef="let element"> {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}</td>
+
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <img [src]="element.subject.teacher.photo" alt="Student Image" class="subject-image">
+          </div>
+          {{element.subject.teacher.name}} {{element.subject.teacher.firstname}}</td>
       </ng-container>
 
       <ng-container matColumnDef="option">
         <th mat-header-cell *matHeaderCellDef>  </th>
         <td mat-cell *matCellDef="let element">
-          <a [routerLink]="['/assignment', element._id]">
+          <a [routerLink]="['/assignments/results/', element.results._id]">
             <button mat-button color="primary"> <mat-icon>bookmark_border</mat-icon> Detail</button>
           </a>
         </td>

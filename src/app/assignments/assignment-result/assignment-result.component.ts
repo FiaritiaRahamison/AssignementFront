@@ -3,30 +3,28 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import  {RouterLink} from '@angular/router';
-import { AuthService } from '../../shared/auth.service';
 import { User } from '../../models/token';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-assignment-detail',
+  selector: 'app-assignment-result',
   standalone: true,
   imports: [CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,
     MatIconModule],
-  templateUrl: './assignment-detail.component.html',
-  styleUrl: './assignment-detail.component.css'
+  templateUrl: './assignment-result.component.html',
+  styleUrl: './assignment-result.component.css'
 })
-export class AssignmentDetailComponent implements OnInit {
+export class AssignmentResultComponent implements OnInit {
 
   userConnected!: User;
 
@@ -37,7 +35,6 @@ export class AssignmentDetailComponent implements OnInit {
   isMark = false;
 
   constructor(private assignmentsService:AssignmentsService,
-              private authService:AuthService,
               private route:ActivatedRoute,
               private router:Router,
               public dialog: MatDialog,
@@ -57,14 +54,12 @@ export class AssignmentDetailComponent implements OnInit {
     if(this.userConnected) {
       this.titleService.changeTitle('Assignment detail');
       const id = this.route.snapshot.params['id'];
-      this.assignmentsService.getDetailAssignment(id)
+      this.assignmentsService.getResultsAssignment(id)
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
         this.getRoleButton(this.userConnected, this.assignmentTransmis);
       });
-      console.log(this.assignmentTransmis);
     }
-
   }
 
   getRoleButton(userConnected: User, assignment: Assignment|undefined) {
@@ -124,5 +119,4 @@ export class AssignmentDetailComponent implements OnInit {
       }
     });
   }
-
 }

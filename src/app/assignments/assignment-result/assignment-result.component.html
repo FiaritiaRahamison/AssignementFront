@@ -27,10 +27,18 @@
       <p style="padding-left: 2%;">{{ assignmentTransmis.subject.teacher.firstname }}</p>
     </div>
 
+    <div class="detail">
+      <div mat-card-avatar>
+          <img [src]="assignmentTransmis.results.author.photo" alt="Teacher Image" class="example-header-image">
+      </div>
+      <p style="padding-left: 15%;">{{ assignmentTransmis.results.author.name }}</p>
+      <p style="padding-left: 2%;">{{ assignmentTransmis.results.author.firstname }}</p>
+    </div>
+
     <div class="content">
       <p style="font-weight: bold;">Done: </p>
-      @if(assignmentTransmis.isDone) {
-        <p style="padding-left: 2%; color: green;"> Assignment done</p>
+      @if(assignmentTransmis.results.dateDone) {
+        <p style="padding-left: 2%; color: green;"> Assignment done {{assignmentTransmis.results.dateDone | date:'dd/MM/yyyy'}}</p>
       } @else {
         <p style="padding-left: 2%; color: red;"> Assignment not done</p>
       }
@@ -38,16 +46,16 @@
 
     <div class="content">
       <p style="font-weight: bold;">Mark: </p>
-      @if(assignmentTransmis.isMark) {
-        <p style="padding-left: 2%;">{{ assignmentTransmis.mark }}</p>
+      @if(assignmentTransmis.results.mark) {
+        <p style="padding-left: 2%;">{{ assignmentTransmis.results.mark }}</p>
       } @else {
         <p style="padding-left: 2%; color: red;">Not rated yet</p>
       }
     </div>
 
-    <div class="content" *ngIf="assignmentTransmis.remark">
+    <div class="content" *ngIf="assignmentTransmis.results.remark">
       <p style="font-weight: bold;">Remark(s): </p>
-      <p style="padding-left: 2%;">{{ assignmentTransmis.remark }}</p>
+      <p style="padding-left: 2%;">{{ assignmentTransmis.results.remark }}</p>
     </div>
   </mat-card-content>
 

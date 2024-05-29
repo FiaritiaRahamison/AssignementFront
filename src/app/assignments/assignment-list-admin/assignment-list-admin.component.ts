@@ -37,7 +37,7 @@ export class AssignmentListAdminComponent implements OnInit {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
 
-  displayedColumns: string[] = ['title', 'deadline', 'subject', 'teacher', 'mark', 'remark', 'option'];
+  displayedColumns: string[] = ['title', 'deadline', 'subject', 'teacher', 'option'];
 
 
   constructor(

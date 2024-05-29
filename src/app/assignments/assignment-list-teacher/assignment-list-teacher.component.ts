@@ -15,7 +15,9 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
 
 @Component({
   selector: 'app-assignment-list-teacher',
@@ -64,7 +66,8 @@ export class AssignmentListTeacherComponent implements OnInit {
 
   constructor(
     private assignmentService: AssignmentsService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    public dialog: MatDialog
   ){}
 
   ngOnInit(): void {
@@ -76,15 +79,15 @@ export class AssignmentListTeacherComponent implements OnInit {
     }
     if(this.userConnected) {
       this.titleService.changeTitle('List of assignments');
-      this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-      this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+      this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+      this.getAssignmentMarked(this.pageMarked, this.limitMarked);
     }
 
   }
 
-  getAssignmentNotMarked(name: string, firstname: string, page: number, limit: number) {
+  getAssignmentNotMarked(page: number, limit: number) {
 
-    this.assignmentService.getAssignmentTeacherNotNoted(name, firstname, page, limit)
+    this.assignmentService.getAssignmentTeacherNotNoted(page, limit)
     .subscribe((data) => {
       this.assignmentNotMarked = data.docs;
       this.totalDocsNotMarked = data.totalDocs;
@@ -96,9 +99,15 @@ export class AssignmentListTeacherComponent implements OnInit {
     })
   }
 
-  getAssignmentMarked(name: string, firstname: string, page: number, limit: number) {
+  onPageChangeNotMarked(event: PageEvent) {
+    this.pageNotMarked = event.pageIndex + 1;
+    this.limitNotMarked = event.pageSize;
+    this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+  }
 
-    this.assignmentService.getAssignmentTeacherNoted(name, firstname, page, limit)
+  getAssignmentMarked(page: number, limit: number) {
+
+    this.assignmentService.getAssignmentTeacherNoted(page, limit)
     .subscribe((data) => {
       this.assignmentMarked = data.docs;
       this.totalDocsMarked = data.totalDocs;
@@ -108,6 +117,12 @@ export class AssignmentListTeacherComponent implements OnInit {
       this.hasNextPageMarked = data.hasNextPage;
       this.hasPrevPageMarked = data.hasPrevPage;
     })
+  }
+
+  onPageChangeMarked(event: PageEvent) {
+    this.pageMarked = event.pageIndex + 1;
+    this.limitMarked = event.pageSize;
+    this.getAssignmentMarked(this.pageMarked, this.limitMarked);
   }
 
   drop(event: CdkDragDrop<any[]>) {
@@ -122,20 +137,25 @@ export class AssignmentListTeacherComponent implements OnInit {
       );
 
       var item = event.container.data[event.currentIndex];
-      item.isMark = event.container.data === this.assignmentMarked;
-      console.log('item', item);
+      // item.isMark = event.container.data === this.assignmentMarked;
+      // console.log('item', item);
 
-      this.assignmentService.updateAssignment(item)
-      .subscribe({
-        next: data => {
-          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
-        },
-        error: (e) => {
-          this.getAssignmentNotMarked(this.userConnected.name, this.userConnected.firstname, this.pageNotMarked, this.limitNotMarked);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
-        }
-      })
+      this.openAddNoteDialog(item);
     }
+  }
+
+  openAddNoteDialog(assignment: Assignment): void {
+    const dialogRef = this.dialog.open(AddNoteDialogComponent, {
+      width: '30%',
+      data: {assignment: assignment}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        console.log('The note is:', result);
+        this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
+        this.getAssignmentMarked(this.pageMarked, this.limitMarked);
+      }
+    });
   }
 }

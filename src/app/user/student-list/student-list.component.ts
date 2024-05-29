@@ -52,7 +52,7 @@ export class StudentListComponent implements OnInit {
   }
 
   getStudents(page: number, limit: number) {
-    this.userService.getUsers(page, limit)
+    this.userService.getStudents(page, limit)
     .subscribe((data) => {
       this.students = data.docs;
       this.totalDoc = data.totalDocs;

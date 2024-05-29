@@ -5,7 +5,7 @@ import { User } from '../../models/token';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
 
 import {
@@ -83,16 +83,16 @@ export class AssignmentListComponent implements OnInit {
 
     if(this.userConnected) {
       this.titleService.changeTitle(`List of ${this.userConnected.name} ${this.userConnected.firstname}'s assignments`);
-      this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
-      this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
-      this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+      this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
+      this.getAssignmentDone(this.pageDone, this.limitDone);
+      this.getAssignmentMarked(this.pageMarked, this.limitMarked);
     }
   }
 
 
-  getAssignmentNotDone(name: string, firstname: string, page: number, limit: number) {
+  getAssignmentNotDone(page: number, limit: number) {
 
-    this.assignmentService.getAssignmentAuthorWhereIsNotDone(name, firstname, page, limit)
+    this.assignmentService.getAssignmentAuthorWhereIsNotDone(page, limit)
     .subscribe((data) => {
       this.assignmentNotDone = data.docs;
       this.totalDocsNotDone = data.totalDocs;
@@ -104,9 +104,15 @@ export class AssignmentListComponent implements OnInit {
     })
   }
 
-  getAssignmentDone(name: string, firstname: string, page: number, limit: number) {
+  onPageChangeNotDone(event: PageEvent) {
+    this.pageNotDone = event.pageIndex + 1;
+    this.limitNotDone = event.pageSize;
+    this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
+  }
 
-    this.assignmentService.getAssignmentAuthorWhereIsDone(name, firstname, page, limit)
+  getAssignmentDone(page: number, limit: number) {
+
+    this.assignmentService.getAssignmentAuthorWhereIsDone(page, limit)
     .subscribe((data) => {
       this.assignmentDone = data.docs;
       this.totalDocsDone = data.totalDocs;
@@ -118,9 +124,15 @@ export class AssignmentListComponent implements OnInit {
     })
   }
 
-  getAssignmentMarked(name: string, firstname: string, page: number, limit: number) {
+  onPageChangeDone(event: PageEvent) {
+    this.pageDone = event.pageIndex + 1;
+    this.limitDone = event.pageSize;
+    this.getAssignmentDone(this.pageDone, this.limitDone);
+  }
 
-    this.assignmentService.getAssignmentAuthorWhereIsMarked(name, firstname, page, limit)
+  getAssignmentMarked(page: number, limit: number) {
+
+    this.assignmentService.getAssignmentAuthorWhereIsMarked(page, limit)
     .subscribe((data) => {
       this.assignmentMarked = data.docs;
       this.totalDocsMarked = data.totalDocs;
@@ -147,17 +159,17 @@ export class AssignmentListComponent implements OnInit {
       item.isDone = event.container.data === this.assignmentDone;
       console.log('item', item);
 
-      this.assignmentService.updateAssignment(item)
+      this.assignmentService.addAssignmentResult(item._id)
       .subscribe({
         next: data => {
-          this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
-          this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+          this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
+          this.getAssignmentDone(this.pageDone, this.limitDone);
+          this.getAssignmentMarked(this.pageMarked, this.limitMarked);
         },
         error: (e) => {
-          this.getAssignmentNotDone(this.userConnected.name, this.userConnected.firstname, this.pageNotDone, this.limitNotDone);
-          this.getAssignmentDone(this.userConnected.name, this.userConnected.firstname, this.pageDone, this.limitDone);
-          this.getAssignmentMarked(this.userConnected.name, this.userConnected.firstname, this.pageMarked, this.limitMarked);
+          this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
+          this.getAssignmentDone(this.pageDone, this.limitDone);
+          this.getAssignmentMarked(this.pageMarked, this.limitMarked);
         }
       })
     }
