@@ -1,11 +1,8 @@
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Server } from '../environment/server';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/token';
 import { Injectable } from '@angular/core';
-import { bdInitialUsers} from './mock_data/MOCK_DATA_USERS';
-import { UserModel } from '../models/user.model';
-import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +10,6 @@ import { LoggingService } from './logging.service';
 export class UsersService {
 
   constructor(
-    private logService:LoggingService,
     private http:HttpClient,
     private server: Server
   ){}
@@ -22,34 +18,6 @@ export class UsersService {
     const urlUser = `${this.server.getUrl()}/api/users?page=${page}&limit=${limit}`;
 
     return this.http.get<User[]>(urlUser);
-  }
-
-  // ajoute un user et retourne une confirmation
-  addUser(user:UserModel):Observable<any> {
-    const urlUser = `${this.server.getUrl()}/api/users`;
-
-    //this.assignments.push(assignment);
-    this.logService.log(user.name, "ajouté");
-    //return of("Assignment ajouté avec succès");
-    return this.http.post<UserModel>(urlUser, user);
-  }
-
-  peuplerBDUsers():Observable<any> {
-    let appelsVersAddUser:Observable<any>[] = [];
-
-    bdInitialUsers.forEach(u => {
-      const newUser = new UserModel();
-      newUser.name = u.name;
-      newUser.firstname = u.firstname;
-      newUser.login = u.login;
-      newUser.password=u.password;
-      newUser.photo=u.photo;
-      newUser.role=u.role;
-
-      appelsVersAddUser.push(this.addUser(newUser))
-    });
-
-    return forkJoin(appelsVersAddUser);
   }
 
 }

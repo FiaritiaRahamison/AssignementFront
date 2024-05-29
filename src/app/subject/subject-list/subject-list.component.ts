@@ -3,7 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { SubjectsService } from '../../shared/subjects.service';
+import { SubjectServiceService } from '../../shared/subject-service.service';
 import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subject } from '../../models/subject';
@@ -33,7 +33,7 @@ export class SubjectListComponent implements OnInit {
   hasPrevPage!: boolean;
 
   constructor(
-    private subjectService: SubjectsService,
+    private subjectService: SubjectServiceService,
     private titleService: TitleService
   ) {}
 

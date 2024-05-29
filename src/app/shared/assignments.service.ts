@@ -7,9 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Server } from '../environment/server';
 
 // importation des données de test
-import { bdInitialAssignments } from './mock_data/MOCK_DATA_ASSIGNMENTS';
-import { TitleService } from './title.service';
-import { Subject } from './../models/subject';
+import { bdInitialAssignments } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -75,44 +73,24 @@ export class AssignmentsService {
     return this.http.delete<any>(urlAssignment);
   }
 
+    // ajoute un assignment et retourne une confirmation
+  addAssignment(assignment:Assignment):Observable<any> {
+    //this.assignments.push(assignment);
+    this.logService.log(assignment.title, "ajouté");
+    //return of("Assignment ajouté avec succès");
+    const urlAssignment = `${this.server.getUrl()}/api/assignments`;
+    return this.http.post<Assignment>(urlAssignment, assignment);
+  }
+
   // modifie un assignment
-  updateAssignment(assignment: Assignment): Observable<any> {
+  updateAssignment(assignment:Assignment):Observable<any> {
     // let assignment = this.getDetailAssignment(assignmentId);
-    this.logService.log(assignment.title!, 'modifié');
+    this.logService.log(assignment.title, "modifié");
     // const urlAssignment = `$(this.server.getUrl()}/api/assignments/${assignment._id}`;
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/${
-      assignment._id
-    }`;
+    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
 
     // return this.http.patch<Assignment>(urlAssignment, assignment);
     return this.http.put(`${urlAssignment}`, assignment);
-  }
-
-  // ajoute une devoir
-  addAssignment(assignment:Assignment):Observable<any> {
-    const token=localStorage.getItem('token');
-    const urlAssign = `${this.server.getUrl()}/api/assignments`;
-    const headers = {Authorization : "bearer "+ token};
-    this.logService.log(assignment.title!, "ajouté");
-    return this.http.post<Assignment>(urlAssign, assignment, {headers});
-  }
-
-  peuplerBDAssignments():Observable<any> {
-    let appelsVersAddAssignment:Observable<any>[] = [];
-
-    bdInitialAssignments.forEach((s) => {
-      const newAssignment = new Assignment();
-      newAssignment.title = s.title;
-      newAssignment.description = s.description || '';
-      newAssignment.subject = s.subject;
-      newAssignment.creationDate = new Date(s.creationDate);
-      newAssignment.deadline = new Date(s.deadline);
-      newAssignment.link = s.link || '';
-
-      appelsVersAddAssignment.push(this.addAssignment(newAssignment));
-    });
-
-    return forkJoin(appelsVersAddAssignment);
   }
 
 }

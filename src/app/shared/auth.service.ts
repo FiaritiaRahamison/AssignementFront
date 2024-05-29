@@ -5,7 +5,6 @@ import { Token } from '../models/token';
 import { Observable, of } from "rxjs";
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { ApiResponse } from './apiresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -27,17 +26,17 @@ export class AuthService {
   // Typiquement, il faudrait qu'elle accepte en paramètres
   // un nom d'utilisateur et un mot de passe, que l'on vérifierait
   // auprès d'un serveur...
-  logIn(login: string, password: string): Observable<ApiResponse> {
+  logIn(login: string, password: string): Observable<Token> {
     const urlLogin = `${this.server.getUrl()}/api/users/login`;
     const param = {
       login,
       password
     }
 
-    return this.http.post<ApiResponse>(urlLogin, param).pipe(
-      tap((response: ApiResponse) => {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+    return this.http.post<Token>(urlLogin, param).pipe(
+      tap((data: Token) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         this.loggedIn = true;
       })
     );
