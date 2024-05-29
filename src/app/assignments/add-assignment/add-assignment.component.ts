@@ -66,7 +66,7 @@ ngOnInit(): void {
     nouvelAssignment.title = this.title;
     nouvelAssignment.deadline = this.deadline;
     nouvelAssignment.description=this.description;
-    nouvelAssignment.author = this.userConnected._id;
+    //nouvelAssignment.author = this.userConnected._id;
     // on utilise le service pour directement ajouter
     // le nouvel assignment dans le tableau
     this.assignmentsService

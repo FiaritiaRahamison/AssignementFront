@@ -7,12 +7,7 @@ export class Assignment {
   creationDate!: Date;
   description!: string;
   dateDone?: Date;
-  isDone!: boolean;
-  isMark!: boolean;
   deadline!: Date;
-  mark?: number;
-  remark?: string;
-  link?: string;
-  author!: string;
-  subject!: Subject;
+  link!: string;
+  subject!: string;
 }
