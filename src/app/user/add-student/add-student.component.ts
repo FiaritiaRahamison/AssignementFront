@@ -19,6 +19,8 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
+import { UsersService } from '../../shared/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-student',
@@ -51,7 +53,12 @@ export class AddStudentComponent implements OnInit {
   role = 1;
   photo = '';
 
-  constructor(private titleService: TitleService, private fb: FormBuilder) {
+  constructor(
+    private titleService: TitleService,
+    private fb: FormBuilder,
+    private usersService: UsersService,
+    private router: Router
+  ) {
     this.studentForm = this.fb.group({
       name: ['', Validators.required],
       firstname: ['', Validators.required],
@@ -94,11 +101,16 @@ export class AddStudentComponent implements OnInit {
 
   onSubmit() {
     if (this.studentForm.valid) {
-      console.log(this.studentForm.value);
       this.studentForm.value.role = this.role;
-      console.log(this.studentForm.value);
-      this.studentForm.reset();
       this.base64Image = null;
+      const newStudent = this.studentForm.value;
+
+      this.usersService
+      .createUser(newStudent)
+        .subscribe(response => {
+          this.studentForm.reset();
+          this.router.navigate(['/students']);
+      });
     }
   }
 }

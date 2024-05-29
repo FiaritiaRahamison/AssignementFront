@@ -61,12 +61,13 @@ export class UsersService {
       const bearerToken = localStorage.getItem('token');
 
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${bearerToken}`,
+        'Authorization': `bearer ${bearerToken}`,
       });
 
-      return this.http.post<ApiResponse>(url, {}, { headers }).pipe(
+      return this.http.post<ApiResponse>(url, user, { headers }).pipe(
         map((response) => response.data),
         tap((data: User) => {
+
         })
       );
     }
