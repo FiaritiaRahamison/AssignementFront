@@ -54,8 +54,8 @@ export class AuthenticationComponent implements OnInit {
       this.authService.logIn(this.username, this.password)
       .subscribe({
         next: data => {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user", JSON.stringify(data.user));
+          // localStorage.setItem("token", data.token);
+          // localStorage.setItem("user", JSON.stringify(data.user));
           this.authLoading = false;
           if(data.user.role == 1) this.router.navigate(['/student/assignments']);
           if(data.user.role == 2) this.router.navigate(['/teacher/assignments']);

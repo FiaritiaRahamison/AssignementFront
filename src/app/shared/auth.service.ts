@@ -4,7 +4,8 @@ import { Server } from '../environment/server';
 import { Token } from '../models/token';
 import { Observable, of } from "rxjs";
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,8 @@ export class AuthService {
       password
     }
 
-    return this.http.post<Token>(urlLogin, param).pipe(
+    return this.http.post<ApiResponse>(urlLogin, param).pipe(
+      map((response) => response.data),
       tap((data: Token) => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));

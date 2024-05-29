@@ -1,8 +1,11 @@
 import { Observable } from 'rxjs';
 import { Server } from '../environment/server';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/token';
 import { Injectable } from '@angular/core';
+import { ApiResponse } from '../models/api-response';
+import { response } from 'express';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +17,21 @@ export class UsersService {
     private server: Server
   ){}
 
-  getUsers(page: number, limit: number): Observable<any> {
-    const urlUser = `${this.server.getUrl()}/api/users?page=${page}&limit=${limit}`;
+  getTeachers(page: number, limit: number): Observable<any> {
+    const urlUser = `${this.server.getUrl()}/api/teachers?page=${page}&limit=${limit}`;
 
-    return this.http.get<User[]>(urlUser);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlUser, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: User[]) => {
+
+      })
+    );
   }
 
 }

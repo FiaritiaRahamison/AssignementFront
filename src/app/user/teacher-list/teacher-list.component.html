@@ -15,7 +15,7 @@
 <div class="card-container">
   <div class="card" *ngFor="let teacher of teachers; let index = index">
     <mat-card class="student-card">
-      <img mat-card-image src="/assets/images/books.jpg" alt="Photo of a Shiba Inu">
+      <img mat-card-image [src]="teacher.photo" alt="Teacher photo">
       <br>
       <mat-card-content>
         <p style="text-align: center;">{{ teacher.name }} {{ teacher.firstname }}</p>

@@ -3,11 +3,12 @@ import { Assignment } from '../models/assignment.model';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Server } from '../environment/server';
 
 // importation des données de test
 import { bdInitialAssignments } from './data';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,17 @@ export class AssignmentsService {
   getAssignments(page: number, limit: number): Observable<any> {
     const urlAssignment = `${this.server.getUrl()}/api/assignments?page=${page}&limit=${limit}`;
 
-    return this.http.get<Assignment[]>(urlAssignment);
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`
+    });
+
+    return this.http.get<ApiResponse>(urlAssignment, { headers }).pipe(
+      map((response) => response.data),
+      tap((data: Assignment[]) => {
+      })
+    );
   }
 
   deleteAssignment(assignmentId: string): Observable<any>  {

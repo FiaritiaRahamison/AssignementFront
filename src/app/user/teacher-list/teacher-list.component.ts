@@ -50,7 +50,7 @@ export class TeacherListComponent implements OnInit {
   }
 
   getTeachers(page: number, limit: number) {
-    this.userService.getUsers(page, limit)
+    this.userService.getTeachers(page, limit)
     .subscribe((data) => {
       this.teachers = data.docs;
       this.totalDoc = data.totalDocs;
