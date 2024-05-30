@@ -3,7 +3,7 @@ import {MatTableModule} from '@angular/material/table';
 import { User } from '../../models/token';
 import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import  {RouterLink} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
@@ -18,6 +18,7 @@ import {
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-assignment-list-teacher',
@@ -30,7 +31,9 @@ import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.compo
     MatIconModule,
     CdkDropList,
     CdkDrag,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CommonModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './assignment-list-teacher.component.html',
   styleUrl: './assignment-list-teacher.component.css'
@@ -38,6 +41,7 @@ import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.compo
 export class AssignmentListTeacherComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
 
   //Assignment not marked
   assignmentNotMarked: Assignment[] = [];
@@ -78,6 +82,7 @@ export class AssignmentListTeacherComponent implements OnInit {
       console.log("Aucune donnée utilisateur trouvée dans le localStorage.");
     }
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle('List of assignments');
       this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
       this.getAssignmentMarked(this.pageMarked, this.limitMarked);
@@ -89,6 +94,7 @@ export class AssignmentListTeacherComponent implements OnInit {
 
     this.assignmentService.getAssignmentTeacherNotNoted(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignmentNotMarked = data.docs;
       this.totalDocsNotMarked = data.totalDocs;
       this.totalPagesNotMarked = data.totalPages;
@@ -102,6 +108,7 @@ export class AssignmentListTeacherComponent implements OnInit {
   onPageChangeNotMarked(event: PageEvent) {
     this.pageNotMarked = event.pageIndex + 1;
     this.limitNotMarked = event.pageSize;
+    this.isLoading = true;
     this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
   }
 
@@ -109,6 +116,7 @@ export class AssignmentListTeacherComponent implements OnInit {
 
     this.assignmentService.getAssignmentTeacherNoted(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignmentMarked = data.docs;
       this.totalDocsMarked = data.totalDocs;
       this.totalPagesMarked = data.totalPages;
@@ -122,6 +130,7 @@ export class AssignmentListTeacherComponent implements OnInit {
   onPageChangeMarked(event: PageEvent) {
     this.pageMarked = event.pageIndex + 1;
     this.limitMarked = event.pageSize;
+    this.isLoading = true;
     this.getAssignmentMarked(this.pageMarked, this.limitMarked);
   }
 

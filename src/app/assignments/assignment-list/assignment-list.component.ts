@@ -3,10 +3,11 @@ import {MatTableModule} from '@angular/material/table';
 import { Assignment } from '../../models/assignment.model';
 import { User } from '../../models/token';
 import { AssignmentsService } from '../../shared/assignments.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import {
   CdkDragDrop,
@@ -22,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
   selector: 'app-assignment-list',
   standalone: true,
   imports: [MatTableModule, DatePipe, MatButtonModule, MatPaginatorModule,
-    CdkDropList, CdkDrag, RouterLink, MatIconModule
+    CdkDropList, CdkDrag, RouterLink, MatIconModule, MatProgressSpinnerModule, CommonModule
   ],
   templateUrl: './assignment-list.component.html',
   styleUrl: './assignment-list.component.css'
@@ -30,6 +31,7 @@ import {MatIconModule} from '@angular/material/icon';
 export class AssignmentListComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
 
   //Assignment not done
   assignmentNotDone: Assignment[] = [];
@@ -82,6 +84,7 @@ export class AssignmentListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`List of ${this.userConnected.name} ${this.userConnected.firstname}'s assignments`);
       this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
       this.getAssignmentDone(this.pageDone, this.limitDone);
@@ -94,6 +97,7 @@ export class AssignmentListComponent implements OnInit {
 
     this.assignmentService.getAssignmentAuthorWhereIsNotDone(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignmentNotDone = data.docs;
       this.totalDocsNotDone = data.totalDocs;
       this.totalPagesNotDone = data.totalPages;
@@ -107,6 +111,7 @@ export class AssignmentListComponent implements OnInit {
   onPageChangeNotDone(event: PageEvent) {
     this.pageNotDone = event.pageIndex + 1;
     this.limitNotDone = event.pageSize;
+    this.isLoading = true;
     this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
   }
 
@@ -114,6 +119,7 @@ export class AssignmentListComponent implements OnInit {
 
     this.assignmentService.getAssignmentAuthorWhereIsDone(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignmentDone = data.docs;
       this.totalDocsDone = data.totalDocs;
       this.totalPagesDone = data.totalPages;
@@ -127,6 +133,7 @@ export class AssignmentListComponent implements OnInit {
   onPageChangeDone(event: PageEvent) {
     this.pageDone = event.pageIndex + 1;
     this.limitDone = event.pageSize;
+    this.isLoading = true;
     this.getAssignmentDone(this.pageDone, this.limitDone);
   }
 
@@ -134,6 +141,7 @@ export class AssignmentListComponent implements OnInit {
 
     this.assignmentService.getAssignmentAuthorWhereIsMarked(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignmentMarked = data.docs;
       this.totalDocsMarked = data.totalDocs;
       this.totalPagesMarked = data.totalPages;
@@ -158,6 +166,7 @@ export class AssignmentListComponent implements OnInit {
       var item = event.container.data[event.currentIndex];
       item.isDone = event.container.data === this.assignmentDone;
       console.log('item', item);
+      this.isLoading = true;
 
       this.assignmentService.addAssignmentResult(item._id)
       .subscribe({

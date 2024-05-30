@@ -9,18 +9,20 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subject } from '../../models/subject';
 import  {RouterLink} from '@angular/router';
 import { TitleService } from '../../shared/title.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-subject-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule, RouterLink],
+    MatIconModule, MatPaginatorModule, RouterLink, MatProgressSpinnerModule],
   templateUrl: './subject-list.component.html',
   styleUrl: './subject-list.component.css'
 })
 export class SubjectListComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
 
   subjects: Subject[] = [];
   page = 1;
@@ -46,6 +48,7 @@ export class SubjectListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`List of subjects`);
       this.getSubjects(this.page, this.limit);
     }
@@ -54,6 +57,7 @@ export class SubjectListComponent implements OnInit {
   getSubjects(page: number, limit: number) {
     this.subjectService.getSubjects(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.subjects = data.docs;
       this.totalDoc = data.totalDocs;
       this.totalPage = data.totalPages;
@@ -67,6 +71,7 @@ export class SubjectListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
+    this.isLoading = true;
     this.getSubjects(this.page, this.limit);
   }
 

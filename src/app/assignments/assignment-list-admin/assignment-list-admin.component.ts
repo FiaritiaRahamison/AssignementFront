@@ -13,12 +13,13 @@ import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.compone
 import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-assignment-list-admin',
   standalone: true,
   imports: [MatPaginatorModule, MatTableModule, DatePipe, RouterLink,
-    MatButtonModule, CommonModule, MatIconModule
+    MatButtonModule, CommonModule, MatIconModule, MatProgressSpinnerModule
   ],
   templateUrl: './assignment-list-admin.component.html',
   styleUrl: './assignment-list-admin.component.css'
@@ -26,6 +27,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class AssignmentListAdminComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
 
   assignments: Assignment[] = [];
   page = 1;
@@ -56,6 +58,7 @@ export class AssignmentListAdminComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle('Assignments list');
       this.getAssignments(this.page, this.limit);
     }
@@ -64,6 +67,7 @@ export class AssignmentListAdminComponent implements OnInit {
   getAssignments(page: number, limit: number) {
     this.assignmentService.getAssignments(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.assignments = data.docs;
       this.totalDocs = data.totalDocs;
       this.totalPages = data.totalPages;
@@ -81,6 +85,7 @@ export class AssignmentListAdminComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined) {
+        this.isLoading = true;
         this.assignmentService.deleteAssignment(result)
         .subscribe({
           next: data => {
@@ -105,6 +110,7 @@ export class AssignmentListAdminComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
+    this.isLoading = true;
     this.getAssignments(this.page, this.limit);
   }
 }

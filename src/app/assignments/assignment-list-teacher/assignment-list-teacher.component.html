@@ -1,10 +1,14 @@
-<div class="btnAjout">
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="btnAjout" *ngIf="!isLoading">
   <a routerLink="/assignment/add">
     <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New assignment</button>
   </a>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="!isLoading">
   <div class="column">
     <h2>List of not rated assignments</h2>
 

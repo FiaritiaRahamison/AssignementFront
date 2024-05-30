@@ -11,3 +11,10 @@
   width: 50%;
   margin-left: 350px;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

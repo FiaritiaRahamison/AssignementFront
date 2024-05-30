@@ -1,4 +1,8 @@
-<div class="btnAjout" *ngIf="userConnected.role == 3">
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="btnAjout" *ngIf="userConnected.role == 3 && !isLoading">
   <a routerLink="/students/add">
     <button mat-flat-button color="accent"><mat-icon>add_circle</mat-icon>New student</button>
   </a>
@@ -9,10 +13,11 @@
   [pageSize]="limit"
   [pageSizeOptions]="[5, 10, 15]"
   (page)="onPageChange($event)"
+  *ngIf="!isLoading"
 >
 </mat-paginator>
 
-<div class="card-container">
+<div class="card-container" *ngIf="!isLoading">
   <div class="card" *ngFor="let student of students; let index = index">
     <mat-card class="student-card">
       <img mat-card-image [src]="student.photo" alt="Photo of a Shiba Inu">

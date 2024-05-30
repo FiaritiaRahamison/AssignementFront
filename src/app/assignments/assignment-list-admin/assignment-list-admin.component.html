@@ -1,6 +1,8 @@
-<h2></h2>
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
 
-<div class="container">
+<div class="container" *ngIf="!isLoading">
 
   <mat-paginator
     [length]="totalDocs"
