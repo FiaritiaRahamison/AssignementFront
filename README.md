@@ -2,8 +2,8 @@
 Ce projet consiste à développer une interface pour gérer des assignments.
 
 ## Auteurs
-* **Rahamison Fiaritia Naliarilala (N°16)**  _alias_ [@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)
-* **Ramilison Solofoniaina Mendrika Fitahiana (N°35)**  _alias_ [@mendrikafitahiana](https://github.com/mendrikafitahiana)
+* **Rahamison Fiaritia Naliarilala (N°14)**  _alias_ [@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)
+* **Ramilison Solofoniaina Mendrika Fitahiana (N°33)**  _alias_ [@mendrikafitahiana](https://github.com/mendrikafitahiana)
 
 ## Contributions
 | Tâches        | Détails      | Contributeurs |
@@ -24,6 +24,7 @@ Ce projet consiste à développer une interface pour gérer des assignments.
 |Création user|Créer un formulaire pour créer un utilisateur|[@mendrikafitahiana](https://github.com/mendrikafitahiana)|
 |Liste user|Créer une page de liste des utilisateurs|[@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)|
 |Design|Améliorer le design de la page suivant la conception faite|[@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)|
+|Bulletin|Afficher la moyenne de note par matière et la moyenne générale|[@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)|
 |Intégration des APIs|Pour chacune des pages, appeler l'API correspondant pour faire fonctionner le tout|[@mendrikafitahiana](https://github.com/mendrikafitahiana)|
 |Hebergement|Hebergement du frontend sur render.com|[@FiaritiaRahamison](https://github.com/FiaritiaRahamison/)|
 ## Installation du projet en local
