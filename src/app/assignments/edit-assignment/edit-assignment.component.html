@@ -1,20 +1,49 @@
-@if(assignment) {
-<div class="container">
-  <!-- <h1>Edition de l'assignment {{assignment.nom}}</h1>
-  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
-    <mat-form-field>
-      <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-      Sauver
-    </button>
-  </form> -->
- </div>
-}
+<form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit assignment</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="form-content">
+      <div class="form-inputs">
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Deadline</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="deadline"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-stroked-button class="addButton" color="primary" type="submit">Update assignment</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</form>
 

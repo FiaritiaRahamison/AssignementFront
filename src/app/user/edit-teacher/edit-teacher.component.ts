@@ -21,6 +21,7 @@ import {
 } from '@angular/material/card';
 import { UsersService } from '../../shared/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-teacher',
@@ -60,6 +61,7 @@ export class EditTeacherComponent implements OnInit {
     private usersService: UsersService,
     private route:ActivatedRoute,
     private router:Router,
+    private snackBar: MatSnackBar
   ) {
     this.teacherForm = this.fb.group({
       name: ['', Validators.required],
@@ -126,6 +128,9 @@ export class EditTeacherComponent implements OnInit {
       .updateUser(newStudent)
         .subscribe(response => {
           this.teacherForm.reset();
+          this.snackBar.open("Teacher edited", "", {
+            duration: 3000
+          });
           this.router.navigate(['/teachers']);
       });
     }

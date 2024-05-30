@@ -5,17 +5,22 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { TitleService } from '../../shared/title.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-note-admin',
   standalone: true,
-  imports: [MatPaginatorModule, MatTableModule],
+  imports: [MatPaginatorModule, MatTableModule, CommonModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './note-admin.component.html',
   styleUrl: './note-admin.component.css'
 })
 export class NoteAdminComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
 
   notes: Note[] = [];
   page = 1;
@@ -43,6 +48,7 @@ export class NoteAdminComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`Subjects average marks`);
       this.getAverageMark();
     }
@@ -52,6 +58,7 @@ export class NoteAdminComponent implements OnInit {
   getAverageMark() {
     this.assignmentService.getAverageMarkAdmin(this.page, this.limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.notes = data.docs;
       this.totalDocs = data.totalDocs;
       this.totalPages = data.totalPages;
@@ -65,6 +72,7 @@ export class NoteAdminComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
+    this.isLoading = true;
     this.getAverageMark();
   }
 

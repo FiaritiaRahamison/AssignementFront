@@ -1,4 +1,7 @@
-<div class="container">
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="container" *ngIf="!isLoading">
 
   <mat-paginator
     [length]="totalDocs"
@@ -26,7 +29,7 @@
 
     <ng-container matColumnDef="mark">
       <th mat-header-cell *matHeaderCellDef> Average mark</th>
-      <td mat-cell *matCellDef="let element"> {{element.averageMark}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.averageMark | number:'1.2-2' }} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

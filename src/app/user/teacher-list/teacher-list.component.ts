@@ -8,17 +8,19 @@ import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
 import  {RouterLink} from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-teacher-list',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,
-    MatIconModule, MatPaginatorModule, RouterLink],
+    MatIconModule, MatPaginatorModule, RouterLink, MatProgressSpinnerModule],
   templateUrl: './teacher-list.component.html',
   styleUrl: './teacher-list.component.css'
 })
 export class TeacherListComponent implements OnInit {
   userConnected!: User;
+  isLoading = false;
 
   teachers: User[] = [];
   page = 1;
@@ -44,6 +46,7 @@ export class TeacherListComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`List of teachers`);
       this.getTeachers(this.page, this.limit);
     }
@@ -52,6 +55,7 @@ export class TeacherListComponent implements OnInit {
   getTeachers(page: number, limit: number) {
     this.userService.getTeachers(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.teachers = data.docs;
       this.totalDoc = data.totalDocs;
       this.totalPage = data.totalPages;
@@ -65,6 +69,7 @@ export class TeacherListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
+    this.isLoading = true;
     this.getTeachers(this.page, this.limit);
   }
 }

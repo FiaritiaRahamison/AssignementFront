@@ -29,3 +29,10 @@ mat-card img {
   width: -webkit-fill-available;
   align-self: center;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

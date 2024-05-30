@@ -4,10 +4,13 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { TitleService } from '../../shared/title.service';
 import { User } from '../../models/token';
 import { CanvasJSAngularChartsModule, CanvasJSChart  } from '@canvasjs/angular-charts';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-note-student',
   standalone: true,
-  imports: [CanvasJSAngularChartsModule],
+  imports: [CanvasJSAngularChartsModule, MatProgressSpinnerModule, CommonModule],
   templateUrl: './note-student.component.html',
   styleUrl: './note-student.component.css'
 })
@@ -15,6 +18,7 @@ export class NoteStudentComponent implements OnInit {
   notes: Note[] = [];
   userConnected!: User;
   chartOptions = {};
+  isLoading = false;
 
   constructor(
     private assignmentService: AssignmentsService,
@@ -30,6 +34,7 @@ export class NoteStudentComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`${this.userConnected.name} ${this.userConnected.firstname}'s average marks`);
       this.getAverageMark();
     }
@@ -40,6 +45,7 @@ export class NoteStudentComponent implements OnInit {
     this.assignmentService.getAverageMarkStudent()
     .subscribe((data) => {
       this.notes = data.docs;
+      this.isLoading = false;
       this.chartOptions = {
         backgroundColor: "white",
         title:{

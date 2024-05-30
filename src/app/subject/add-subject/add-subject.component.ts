@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { UsersService } from '../../shared/users.service';
 import {MatSelectModule} from '@angular/material/select';
 import { SubjectServiceService } from '../../shared/subject-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-subject',
@@ -53,6 +54,7 @@ export class AddSubjectComponent implements OnInit {
     private subjectService: SubjectServiceService,
     private router: Router,
     private userService: UsersService,
+    private snackBar: MatSnackBar
   ){
     this.subjectForm = this.fb.group({
       name: ['', Validators.required],
@@ -111,6 +113,9 @@ export class AddSubjectComponent implements OnInit {
       .createSubject(newTeacher)
         .subscribe(response => {
           this.subjectForm.reset();
+          this.snackBar.open("Subject created", "", {
+            duration: 3000
+          });
           this.router.navigate(['/subjects']);
       });
     }

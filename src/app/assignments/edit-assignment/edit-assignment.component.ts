@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, AbstractControl, ValidatorFn } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,12 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../../models/assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../models/token';
+import { TitleService } from '../../shared/title.service';
+import { CommonModule } from '@angular/common';
+import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { response } from 'express';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -19,50 +25,88 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardActions,
+    MatCard,
+    MatCardContent,
+    MatCardTitle,
+    MatCardHeader,
   ],
   templateUrl: './edit-assignment.component.html',
   styleUrl: './edit-assignment.component.css',
 })
 export class EditAssignmentComponent implements OnInit {
-  assignment: Assignment | undefined;
-  // Pour les champs de formulaire
-  nomAssignment = '';
-  dateDeRendu?: Date = undefined;
+
+  userConnected!: User;
+  _id!:string;
+  title = '';
+  description = '';
+  deadline?: Date = undefined;
+  assignmentTransmis!: Assignment;
+  assignmentForm!: FormGroup;
 
   constructor(
     private assignmentsService: AssignmentsService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private titleService: TitleService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {
+    this.createForm();
+  }
+
+  private requireIfEmpty(control: AbstractControl): ValidatorFn | null {
+    return control.value ? null : Validators.required;
+  }
+
+  createForm() {
+    this.assignmentForm = this.fb.group({
+      title: ['', this.requireIfEmpty],
+      description: [''],
+      deadline: ['', this.requireIfEmpty],
+    });
+  }
 
   ngOnInit() {
-    // on récupère l'id dans l'url
-    const id = +this.route.snapshot.params['id'];
-    // this.assignmentsService.getAssignment(id)
-    // .subscribe((assignment) => {
-    //   this.assignment = assignment;
-    //   // on met à jour les champs du formulaire
-    //   if (assignment !== undefined) {
-    //     this.nomAssignment = assignment.nom;
-    //     this.dateDeRendu = assignment.dateDeRendu;
-    //   }
-    // });
+    let data = window.localStorage.getItem('user');
+    if (data) {
+      this.userConnected = JSON.parse(data);
+    } else {
+      console.log('Aucune donnée utilisateur trouvée dans le localStorage.');
+    }
+
+    if (this.userConnected) {
+      this.titleService.changeTitle(`Edit assignment`);
+      const id = this.route.snapshot.params['id'];
+      this.assignmentsService.getDetailAssignment(id)
+      .subscribe(assigment => {
+        this.assignmentTransmis = assigment;
+        this.assignmentForm.patchValue({
+          title: this.assignmentTransmis.title,
+          description: this.assignmentTransmis.description,
+          deadline: this.assignmentTransmis.deadline,
+          _id: this.assignmentTransmis._id
+        })
+      })
+    }
   }
 
-  onSaveAssignment() {
-    if (!this.assignment) return;
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
-
-    // on récupère les valeurs dans le formulaire
-    // this.assignment.nom = this.nomAssignment;
-    // this.assignment.dateDeRendu = this.dateDeRendu;
-    // this.assignmentsService
-    //   .updateAssignment(this.assignment)
-    //   .subscribe((message) => {
-    //     console.log(message);
-
-    //     // navigation vers la home page
-    //     this.router.navigate(['/home']);
-    //   });
+  onSubmit() {
+    if(this.assignmentForm.valid) {
+      this.assignmentForm.value._id = this.assignmentTransmis._id;
+      const newAssignment = this.assignmentForm.value;
+      console.log(newAssignment);
+      this.assignmentsService.updateAssignment(newAssignment)
+      .subscribe(response => {
+        this.assignmentForm.reset();
+        this.snackBar.open(response.message, "", {
+          duration: 3000
+        });
+        this.router.navigate(['/home']);
+      })
+    }
   }
+
 }
