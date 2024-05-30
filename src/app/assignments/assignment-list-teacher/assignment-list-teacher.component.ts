@@ -108,7 +108,6 @@ export class AssignmentListTeacherComponent implements OnInit {
   onPageChangeNotMarked(event: PageEvent) {
     this.pageNotMarked = event.pageIndex + 1;
     this.limitNotMarked = event.pageSize;
-    this.isLoading = true;
     this.getAssignmentNotMarked(this.pageNotMarked, this.limitNotMarked);
   }
 
@@ -130,7 +129,6 @@ export class AssignmentListTeacherComponent implements OnInit {
   onPageChangeMarked(event: PageEvent) {
     this.pageMarked = event.pageIndex + 1;
     this.limitMarked = event.pageSize;
-    this.isLoading = true;
     this.getAssignmentMarked(this.pageMarked, this.limitMarked);
   }
 

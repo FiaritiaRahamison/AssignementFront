@@ -71,7 +71,6 @@ export class SubjectListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.isLoading = true;
     this.getSubjects(this.page, this.limit);
   }
 

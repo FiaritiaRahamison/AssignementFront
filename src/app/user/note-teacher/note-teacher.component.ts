@@ -70,7 +70,6 @@ export class NoteTeacherComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.isLoading = true;
     this.getAverageMark();
   }
 

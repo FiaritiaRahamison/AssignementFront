@@ -9,6 +9,9 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
 import  {RouterLink} from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-list',
@@ -36,7 +39,9 @@ export class StudentListComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -71,15 +76,33 @@ export class StudentListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.isLoading = true;
     this.getStudents(this.page, this.limit);
   }
 
-  // get startIndex(): number {
-  //   return this.currentPageIndex * this.pageSize;
-  // }
+  openDeleteDialog(user: User): void {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: {user: user}
+    });
 
-  // get endIndex(): number {
-  //   return this.startIndex + this.pageSize;
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined) {
+        this.userService.deleteUser(result)
+        .subscribe({
+          next: data => {
+            console.log("data", data);
+            this.snackBar.open("Student deleted", "", {
+              duration: 3000
+            });
+            this.getStudents(this.page, this.limit);
+          },
+          error: (e) => {
+            this.snackBar.open(e.message, "", {
+              duration: 3000
+            });
+            this.getStudents(this.page, this.limit);
+          }
+        })
+      }
+    })
+  }
 }

@@ -7,8 +7,11 @@ import { UsersService } from '../../shared/users.service';
 import { User } from '../../models/token';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { TitleService } from '../../shared/title.service';
-import  {RouterLink} from '@angular/router';
+import  {Router, RouterLink} from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
 
 @Component({
   selector: 'app-teacher-list',
@@ -34,7 +37,9 @@ export class TeacherListComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +74,33 @@ export class TeacherListComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.isLoading = true;
     this.getTeachers(this.page, this.limit);
+  }
+
+  openDeleteDialog(user: User): void {
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
+      data: {user: user}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != undefined) {
+        this.userService.deleteUser(result)
+        .subscribe({
+          next: data => {
+            console.log("data", data);
+            this.snackBar.open("Teacher deleted", "", {
+              duration: 3000
+            });
+            this.getTeachers(this.page, this.limit);
+          },
+          error: (e) => {
+            this.snackBar.open(e.message, "", {
+              duration: 3000
+            });
+            this.getTeachers(this.page, this.limit);
+          }
+        })
+      }
+    })
   }
 }

@@ -111,7 +111,6 @@ export class AssignmentListComponent implements OnInit {
   onPageChangeNotDone(event: PageEvent) {
     this.pageNotDone = event.pageIndex + 1;
     this.limitNotDone = event.pageSize;
-    this.isLoading = true;
     this.getAssignmentNotDone(this.pageNotDone, this.limitNotDone);
   }
 
@@ -133,7 +132,6 @@ export class AssignmentListComponent implements OnInit {
   onPageChangeDone(event: PageEvent) {
     this.pageDone = event.pageIndex + 1;
     this.limitDone = event.pageSize;
-    this.isLoading = true;
     this.getAssignmentDone(this.pageDone, this.limitDone);
   }
 

@@ -102,4 +102,17 @@ export class UsersService {
       );
     }
 
+    deleteUser(user: User){
+      const url = `${this.server.getUrl()}/api/users/${user._id}`;
+      const bearerToken = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+      return this.http.delete<ApiResponse>(`${url}`,{headers}).pipe(
+        map((response) => response.data),
+        tap((data: any) => {
+        })
+      );
+    }
+
 }
