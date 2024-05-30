@@ -72,7 +72,7 @@ export class AssignmentResultComponent implements OnInit {
         if(assignment?.subject.teacher._id == userConnected.id) {
           this.isEdit = true;
           this.isRemove = true;
-          if(!assignment?.isMark) {
+          if(!assignment?.results?.isMark) {
             this.isMark = true;
           }
         }
