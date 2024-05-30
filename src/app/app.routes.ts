@@ -20,6 +20,7 @@ import { NoteTeacherComponent } from './user/note-teacher/note-teacher.component
 import { NoteAdminComponent } from './user/note-admin/note-admin.component';
 import { EditStudentComponent } from './user/edit-student/edit-student.component';
 import { EditTeacherComponent } from './user/edit-teacher/edit-teacher.component';
+import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,6 +36,7 @@ export const routes: Routes = [
   { path: "teachers", component: TeacherListComponent},
   { path: "student/edit/:id", component: EditStudentComponent},
   { path: "teacher/edit/:id", component: EditTeacherComponent},
+  { path: "subject/edit/:id", component: EditSubjectComponent},
   { path: "subjects", component: SubjectListComponent},
   { path: "subjects/add", component: AddSubjectComponent},
   { path: "teachers/add", component: AddTeacherComponent},
