@@ -48,4 +48,34 @@ export class SubjectServiceService {
         })
       );
     }
+
+    getDetailSubject(id: string|undefined): Observable<any> {
+      const url = `${this.server.getUrl()}/api/subjects/${id}`;
+
+      const bearerToken = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+
+      return this.http.get<ApiResponse>(url, { headers }).pipe(
+        map((response) => response.data),
+        tap((data: Subject) => {
+
+        })
+      );
+    }
+
+    updateService(subject: Subject){
+      const url = `${this.server.getUrl()}/api/subjects/${subject._id}`;
+      const bearerToken = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+      return this.http.put<ApiResponse>(`${url}`, subject, {headers}).pipe(
+        map((response) => response.data),
+        tap((data: Subject) => {
+        })
+      );
+    }
 }

@@ -1,0 +1,65 @@
+<!-- src/app/student-form/student-form.component.html -->
+<form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>New subject</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="form-content">
+      <div class="form-inputs">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required />
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Teacher</mat-label>
+            <mat-select formControlName="teacher">
+              <mat-option *ngFor="let teacher of teachers; let index = index" [value]="teacher._id">
+                {{teacher.name}} {{teacher.firstname}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <input
+            formControlName="image"
+            id="file"
+            type="file"
+            class="form-control hidden"
+            (change)="onFileChange($event)"
+          />
+          <label for="file" class="custom-file-upload">
+            Choose associated image
+          </label>
+        </div>
+      </div>
+
+      <div class="form-preview">
+        <div *ngIf="base64Image">
+          <h3>Preview:</h3>
+          <img
+            [src]="base64Image"
+            alt="Image Preview"
+            style="width: 200px; height: auto"
+          />
+          <input type="hidden" formControlName="photo" />
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        mat-stroked-button
+        class="addButton"
+        color="primary"
+        type="submit"
+      >
+        Add subject
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
