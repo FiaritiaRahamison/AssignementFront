@@ -217,13 +217,17 @@ export class AssignmentsService {
 
   // modifie un assignment
   updateAssignment(assignment:Assignment):Observable<any> {
-    // let assignment = this.getDetailAssignment(assignmentId);
     this.logService.log(assignment.title, "modifié");
-    // const urlAssignment = `$(this.server.getUrl()}/api/assignments/${assignment._id}`;
-    const urlAssignment = `${this.server.getUrl()}/api/assignments/${assignment._id}`;
 
-    // return this.http.patch<Assignment>(urlAssignment, assignment);
-    return this.http.put(`${urlAssignment}`, assignment);
+    const urlAssignment = `${this.server.getUrl()}/api/assignment/${assignment._id}`;
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`,
+    });
+
+    return this.http.put(`${urlAssignment}`, assignment, { headers });
   }
 
   getAverageMarkStudent(): Observable<any> {

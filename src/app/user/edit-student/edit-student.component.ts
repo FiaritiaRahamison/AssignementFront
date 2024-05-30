@@ -123,7 +123,7 @@ export class EditStudentComponent implements OnInit {
       this.studentForm.value._id = this.studentTransmis._id;
       this.base64Image = null;
       const newStudent = this.studentForm.value;
-console.log(newStudent);
+      console.log(newStudent);
       this.usersService
       .updateUser(newStudent)
         .subscribe(response => {

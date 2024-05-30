@@ -54,7 +54,7 @@
           <button mat-stroked-button color="primary"> <mat-icon>bookmark_border</mat-icon> Detail</button>
         </a> |
 
-        <button mat-stroked-button color="accent"> <mat-icon>edit</mat-icon> Edit</button> |
+        <button mat-stroked-button color="accent" [routerLink]="['/assignment/edit/', element._id]"> <mat-icon>edit</mat-icon> Edit</button> |
 
         <button mat-stroked-button color="warn" (click)="openDeleteDialog(element)"> <mat-icon>delete_outline</mat-icon> Remove</button>
 

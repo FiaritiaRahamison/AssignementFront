@@ -43,10 +43,5 @@ export const routes: Routes = [
   { path: "assignments/student/average", component: NoteStudentComponent},
   { path: "assignments/teacher/average", component: NoteTeacherComponent},
   { path: "assignments/admin/average", component: NoteAdminComponent},
-
-  {
-    path: "assignment/:id/edit",
-    component: EditAssignmentComponent,
-    canActivate: [authGuard]
-  }
+  { path: "assignment/edit/:id", component: EditAssignmentComponent}
 ];

@@ -61,7 +61,7 @@
 
   <mat-card-actions>
     <div class="button-row">
-        <button *ngIf="isEdit" mat-stroked-button color="primary"> <mat-icon>edit</mat-icon> Edit</button>
+        <button *ngIf="isEdit" mat-stroked-button color="primary" [routerLink]="['/assignment/edit/', assignmentTransmis._id]"> <mat-icon>edit</mat-icon> Edit</button>
         <button *ngIf="isRemove" mat-stroked-button color="warn" (click)="openDeleteDialog(assignmentTransmis)"> <mat-icon>delete_outline</mat-icon> Remove</button>
         <button *ngIf="isMark" mat-stroked-button color="accent" (click)="openAddNoteDialog(assignmentTransmis)"> <mat-icon>check</mat-icon> Mark</button>
     </div>
