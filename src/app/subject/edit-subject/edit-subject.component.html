@@ -2,7 +2,7 @@
 <form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>New subject</mat-card-title>
+      <mat-card-title>Edit subject</mat-card-title>
     </mat-card-header>
     <mat-card-content class="form-content">
       <div class="form-inputs">
@@ -17,7 +17,7 @@
           <mat-form-field>
             <mat-label>Teacher</mat-label>
             <mat-select formControlName="teacher">
-              <mat-option *ngFor="let teacher of teachers; let index = index" [value]="teacher._id">
+              <mat-option *ngFor="let teacher of teachers; let index = index" [value]="teacher">
                 {{teacher.name}} {{teacher.firstname}}
               </mat-option>
             </mat-select>
@@ -39,14 +39,10 @@
       </div>
 
       <div class="form-preview">
-        <div *ngIf="base64Image">
+        <div>
           <h3>Preview:</h3>
-          <img
-            [src]="base64Image"
-            alt="Image Preview"
-            style="width: 200px; height: auto"
-          />
-          <input type="hidden" formControlName="photo" />
+          <img [src]="subjectTransmis.photo" alt="Image Preview" style="width:200px; height: auto;">
+          <input type="hidden" formControlName="photo"/>
         </div>
       </div>
     </mat-card-content>
@@ -58,7 +54,7 @@
         color="primary"
         type="submit"
       >
-        Add subject
+        Edit subject
       </button>
     </mat-card-actions>
   </mat-card>

@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectServiceService } from '../../shared/subject-service.service';
 import { Subject } from '../../models/subject';
 import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-subject',
@@ -41,7 +42,8 @@ import { MatOption } from '@angular/material/core';
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
-    MatOption
+    MatOption,
+    MatSelectModule
   ],
   templateUrl: './edit-subject.component.html',
   styleUrls: ['./edit-subject.component.css'],
@@ -81,17 +83,16 @@ export class EditSubjectComponent implements OnInit {
     if (data) {
       this.userConnected = JSON.parse(data);
     } else {
-      console.log('Aucune donnée utilisateur trouvée dans le localStorage.');
+      console.log('No user data found in localStorage.');
     }
 
     if (this.userConnected) {
-this.getTeachers(1,1000);
+      this.getTeachers(1,1000);
       this.titleService.changeTitle(`Edit subject`);
       const id = this.route.snapshot.params['id'];
       this.subjectsService.getDetailSubject(id)
       .subscribe(subject => {
         this.subjectTransmis = subject;
-        console.log(this.subjectTransmis.teacher._id);
         this.subjectForm.patchValue({
           name: this.subjectTransmis?.name,
           photo: this.subjectTransmis?.photo,
@@ -101,6 +102,7 @@ this.getTeachers(1,1000);
       });
     }
   }
+
 
   getTeachers(page: number, limit: number) {
     this.usersService.getTeachers(page, limit)
@@ -128,14 +130,29 @@ this.getTeachers(1,1000);
     }
   }
 
+  // onSubmit() {
+  //   // console.log(this.subjectForm);
+  //   if (this.subjectForm.valid) {
+  //     this.subjectForm.value.name = this.name;
+  //     this.subjectForm.value._id = this.subjectTransmis._id;
+  //     this.subjectForm.value.teacher = this.teacher;
+  //     this.base64Image = null;
+  //     const newSubject = this.subjectForm.value;
+  //     console.log(newSubject);
+  //     this.subjectsService
+  //     .updateService(newSubject)
+  //       .subscribe(response => {
+  //         this.subjectForm.reset();
+  //         this.router.navigate(['/subjects']);
+  //     });
+  //   }
+  // }
+
   onSubmit() {
-    // console.log(this.subjectForm);
     if (this.subjectForm.valid) {
-      this.subjectForm.value.name = this.name;
-      this.subjectForm.value._id = this.subjectTransmis._id;
-      this.subjectForm.value.teacher = this.teacher;
-      this.base64Image = null;
-      const newSubject = this.subjectForm.value;
+      let newSubject = this.subjectForm.value;
+      newSubject._id=this.subjectTransmis._id;
+      delete newSubject.image;
       console.log(newSubject);
       this.subjectsService
       .updateService(newSubject)
@@ -145,5 +162,6 @@ this.getTeachers(1,1000);
       });
     }
   }
+
 
 }

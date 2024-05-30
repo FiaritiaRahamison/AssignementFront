@@ -67,7 +67,7 @@ export class SubjectServiceService {
     }
 
     updateService(subject: Subject){
-      const url = `${this.server.getUrl()}/api/subjects/${subject._id}`;
+      const url = `${this.server.getUrl()}/api/subjects`;
       const bearerToken = localStorage.getItem('token');
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${bearerToken}`
