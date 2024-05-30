@@ -21,6 +21,7 @@ import {
 } from '@angular/material/card';
 import { UsersService } from '../../shared/users.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-student',
@@ -57,7 +58,8 @@ export class AddStudentComponent implements OnInit {
     private titleService: TitleService,
     private fb: FormBuilder,
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.studentForm = this.fb.group({
       name: ['', Validators.required],
@@ -109,6 +111,9 @@ export class AddStudentComponent implements OnInit {
       .createUser(newStudent)
         .subscribe(response => {
           this.studentForm.reset();
+          this.snackBar.open("Student created", "", {
+            duration: 3000
+          });
           this.router.navigate(['/students']);
       });
     }
