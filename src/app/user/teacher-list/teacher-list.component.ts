@@ -87,7 +87,6 @@ export class TeacherListComponent implements OnInit {
         this.userService.deleteUser(result)
         .subscribe({
           next: data => {
-            console.log("data", data);
             this.snackBar.open("Teacher deleted", "", {
               duration: 3000
             });

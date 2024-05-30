@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Delete subject : {{data.subject.name}}</h2>
+<div class="form">
+    <h3 mat-dialog-content>Are you sure you want to delete this subject?</h3>
+  <mat-dialog-actions>
+    <button mat-stroked-button (click)="onNoClick()" color="disabled">No Thanks</button>
+    <button mat-stroked-button [mat-dialog-close]="data.subject" color="primary">Delete</button>
+  </mat-dialog-actions>
+</div>

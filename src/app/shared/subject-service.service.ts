@@ -78,4 +78,17 @@ export class SubjectServiceService {
         })
       );
     }
+
+    deleteService(subject: Subject){
+      const url = `${this.server.getUrl()}/api/subjects/${subject._id}`;
+      const bearerToken = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+      return this.http.delete<ApiResponse>(`${url}`, {headers}).pipe(
+        map((response) => response.data),
+        tap((data: Subject) => {
+        })
+      );
+    }
 }
