@@ -21,6 +21,7 @@ import { NoteAdminComponent } from './user/note-admin/note-admin.component';
 import { EditStudentComponent } from './user/edit-student/edit-student.component';
 import { EditTeacherComponent } from './user/edit-teacher/edit-teacher.component';
 import { EditSubjectComponent } from './subject/edit-subject/edit-subject.component';
+import { StudentGradesComponent } from './user/student-grades/student-grades.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -45,5 +46,6 @@ export const routes: Routes = [
   { path: "assignments/student/average", component: NoteStudentComponent},
   { path: "assignments/teacher/average", component: NoteTeacherComponent},
   { path: "assignments/admin/average", component: NoteAdminComponent},
-  { path: "assignment/edit/:id", component: EditAssignmentComponent}
+  { path: "assignment/edit/:id", component: EditAssignmentComponent},
+  { path: "student/grades/:id", component: StudentGradesComponent}
 ];
