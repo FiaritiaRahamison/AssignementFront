@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { response } from 'express';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -32,6 +33,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './edit-assignment.component.html',
   styleUrl: './edit-assignment.component.css',
@@ -39,6 +41,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EditAssignmentComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
+
   _id!:string;
   title = '';
   description = '';
@@ -79,9 +83,11 @@ export class EditAssignmentComponent implements OnInit {
 
     if (this.userConnected) {
       this.titleService.changeTitle(`Edit assignment`);
+      this.isLoading = true;
       const id = this.route.snapshot.params['id'];
       this.assignmentsService.getDetailAssignment(id)
       .subscribe(assigment => {
+        this.isLoading = false
         this.assignmentTransmis = assigment;
         this.assignmentForm.patchValue({
           title: this.assignmentTransmis.title,

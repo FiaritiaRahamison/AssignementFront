@@ -22,6 +22,7 @@ import {
 import { UsersService } from '../../shared/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-edit-student',
@@ -39,12 +40,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
+    MatProgressSpinnerModule
   ],
   templateUrl: './edit-student.component.html',
   styleUrls: ['./edit-student.component.css'],
 })
 export class EditStudentComponent implements OnInit {
   userConnected!: User;
+  isLoading = false;
+
   _id!:string;
   studentForm: FormGroup;
   base64Image: string | null = null;
@@ -81,10 +85,12 @@ export class EditStudentComponent implements OnInit {
     }
 
     if (this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`Edit student`);
       const id = this.route.snapshot.params['id'];
       this.usersService.getDetailUser(id)
       .subscribe(teacher => {
+        this.isLoading = false;
         this.studentTransmis = teacher;
         console.log(this.studentTransmis._id);
         this.studentForm.patchValue({

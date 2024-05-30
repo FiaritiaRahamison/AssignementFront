@@ -12,6 +12,7 @@ import { UsersService } from '../../shared/users.service';
 import {MatSelectModule} from '@angular/material/select';
 import { SubjectServiceService } from '../../shared/subject-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-add-subject',
@@ -30,6 +31,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatCardTitle,
     MatCardHeader,
     MatSelectModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './add-subject.component.html',
   styleUrl: './add-subject.component.css'
@@ -37,6 +39,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddSubjectComponent implements OnInit {
 
   userConnected!: User;
+  isLoading = false;
+
   subjectForm: FormGroup;
   teachers:any;
   teacher!:string;
@@ -72,6 +76,7 @@ export class AddSubjectComponent implements OnInit {
     }
 
     if(this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`Add a subject`);
       this.getTeachers(1,1000);
 
@@ -81,6 +86,7 @@ export class AddSubjectComponent implements OnInit {
   getTeachers(page: number, limit: number) {
     this.userService.getTeachers(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.teachers = data.docs;
       console.log(this.teachers);
     });

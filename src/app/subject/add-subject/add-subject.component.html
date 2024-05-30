@@ -1,5 +1,8 @@
-<!-- src/app/student-form/student-form.component.html -->
-<form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="subjectForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
   <mat-card>
     <mat-card-header>
       <mat-card-title>New subject</mat-card-title>

@@ -25,6 +25,7 @@ import { SubjectServiceService } from '../../shared/subject-service.service';
 import { Subject } from '../../models/subject';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-edit-subject',
@@ -43,13 +44,16 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardTitle,
     MatCardHeader,
     MatOption,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './edit-subject.component.html',
   styleUrls: ['./edit-subject.component.css'],
 })
 export class EditSubjectComponent implements OnInit {
   userConnected!: User;
+  isLoading = false;
+
   _id!:string;
   subjectForm: FormGroup;
   base64Image: string | null = null;
@@ -87,11 +91,13 @@ export class EditSubjectComponent implements OnInit {
     }
 
     if (this.userConnected) {
+      this.isLoading = true;
       this.getTeachers(1,1000);
       this.titleService.changeTitle(`Edit subject`);
       const id = this.route.snapshot.params['id'];
       this.subjectsService.getDetailSubject(id)
       .subscribe(subject => {
+        // this.isLoading = false;
         this.subjectTransmis = subject;
         this.subjectForm.patchValue({
           name: this.subjectTransmis?.name,
@@ -107,6 +113,7 @@ export class EditSubjectComponent implements OnInit {
   getTeachers(page: number, limit: number) {
     this.usersService.getTeachers(page, limit)
     .subscribe((data) => {
+      this.isLoading = false;
       this.teachers = data.docs;
       console.log(this.teachers);
     });

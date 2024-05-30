@@ -16,13 +16,14 @@ import {MatIconModule} from '@angular/material/icon';
 import { TitleService } from '../../shared/title.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
   imports: [CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,
-    MatIconModule],
+    MatIconModule, MatProgressSpinnerModule],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
 })

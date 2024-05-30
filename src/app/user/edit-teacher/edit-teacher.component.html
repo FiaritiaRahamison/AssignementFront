@@ -1,4 +1,8 @@
-<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+<div class="spinner-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="teacherForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
 
   <mat-card>
     <mat-card-header>

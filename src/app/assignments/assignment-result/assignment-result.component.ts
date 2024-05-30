@@ -14,13 +14,14 @@ import { TitleService } from '../../shared/title.service';
 import { AddNoteDialogComponent } from '../add-note-dialog/add-note-dialog.component';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-assignment-result',
   standalone: true,
   imports: [CommonModule, RouterLink,
     MatButtonModule, MatCardModule, MatCheckboxModule,
-    MatIconModule],
+    MatIconModule, MatProgressSpinnerModule],
   templateUrl: './assignment-result.component.html',
   styleUrl: './assignment-result.component.css'
 })
