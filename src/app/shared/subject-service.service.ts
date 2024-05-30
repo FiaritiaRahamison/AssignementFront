@@ -31,4 +31,21 @@ export class SubjectServiceService {
       })
     );
   }
+
+    // enregistre un nouvel utilisateur
+    createSubject(subject:Subject):Observable<any> {
+      const url = `${this.server.getUrl()}/api/subjects`;
+      const bearerToken = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `bearer ${bearerToken}`,
+      });
+
+      return this.http.post<ApiResponse>(url, subject, { headers }).pipe(
+        map((response) => response.data),
+        tap((data: Subject) => {
+
+        })
+      );
+    }
 }
