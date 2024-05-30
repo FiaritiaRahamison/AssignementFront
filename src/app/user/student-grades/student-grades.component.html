@@ -1,0 +1,26 @@
+<table mat-table [dataSource]="grades">
+  <!-- Avatar Column -->
+  <ng-container matColumnDef="subject">
+    <th mat-header-cell *matHeaderCellDef> Subject </th>
+    <td mat-cell *matCellDef="let element">
+      <div>
+        <img [src]="element.subject.photo" alt="Avatar" width="50" height="50">
+      </div>
+      {{element.subject.name}}
+    </td>
+    <td mat-footer-cell *matFooterCellDef> Moyenne générale </td>
+  </ng-container>
+
+  <!-- Note Column -->
+  <ng-container matColumnDef="note">
+    <th mat-header-cell *matHeaderCellDef> Note </th>
+    <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{moyenne}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+</table>
+
+<!-- <p>Average: {{grades.moyenne}}</p> -->

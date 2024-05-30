@@ -82,4 +82,9 @@ export class SidebarComponent implements OnInit {
   goToAdminNote() {
     this.router.navigate(['/assignments/admin/average']);
   }
+
+  goToStudentBulletin(){
+  const url='student/grades/'+this.userConnected.id;
+    this.router.navigate([url]);
+  }
 }

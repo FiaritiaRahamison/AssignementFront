@@ -15,6 +15,12 @@
           </mat-list-item>
         </div>
 
+        <div *ngIf="userConnected.role == 1">
+          <mat-list-item class="matListItem">
+            <a class="menuItem" (click)="goToStudentBulletin()">Bulletin</a>
+          </mat-list-item>
+        </div>
+
         <div *ngIf="userConnected.role == 2">
           <mat-list-item class="matListItem">
             <a class="menuItem" (click)="goToStudentList()">Students</a>
