@@ -39,7 +39,7 @@ Ce projet consiste à développer une interface pour gérer des assignments.
 * CSS - Mise en forme
 
 ## Données d'accès au projet 
-* Elève(s) : sbrabender14/password, pirnys0/password, rbucky2/0000, kocarran1/password
+* Elève(s) : sbrabender14/password, rbucky2/0000, kocarran1/password
 * Professeur(s) : acuppleditche/123456!, ojanningw/0000, firon7/123456!
 * Administrateur : admin/admin
 
