@@ -4,16 +4,20 @@ import { UsersService } from '../../shared/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/token';
 import { MatCell, MatColumnDef, MatFooterCell, MatFooterCellDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableModule } from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-grades',
   standalone: true,
-  imports: [MatTableModule, MatRow, MatHeaderRow, MatCell, MatHeaderCell, MatTable, MatRowDef, MatHeaderRowDef, MatColumnDef, MatFooterCellDef, MatFooterCell],
+  imports: [MatTableModule, MatRow, MatHeaderRow, MatCell, MatHeaderCell, MatTable, MatRowDef, MatHeaderRowDef, MatColumnDef, MatFooterCellDef, MatFooterCell, MatProgressSpinnerModule, CommonModule],
   templateUrl: './student-grades.component.html',
   styleUrl: './student-grades.component.css'
 })
 export class StudentGradesComponent {
   userConnected!: User;
+  isLoading = false;
+
   moyenne:any;
   grades:any;
 
@@ -36,11 +40,12 @@ export class StudentGradesComponent {
     }
 
     if (this.userConnected) {
+      this.isLoading = true;
       this.titleService.changeTitle(`Edit student`);
       const id = this.route.snapshot.params['id'];
       this.usersService.getUserGrade(id)
       .subscribe(data => {
-
+        this.isLoading = false;
         this.moyenne = data.moyenne;
         this.grades =data.notes;
         console.log(this.moyenne);

@@ -5,3 +5,10 @@ tr.mat-mdc-footer-row td {
 .mat-mdc-table {
   padding: 0% 10%;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
