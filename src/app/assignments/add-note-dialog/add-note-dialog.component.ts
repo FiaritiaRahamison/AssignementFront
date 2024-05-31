@@ -34,29 +34,35 @@ export interface DialogData {
 export class AddNoteDialogComponent {
   mark = 0;
   remark='';
-
+  isLoading = false;
   constructor(
     public dialogRef: MatDialogRef<AddNoteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private assignmentsService: AssignmentsService,
     private router: Router
-  ) {}
+  ) {
+    this.router.onSameUrlNavigation = 'reload';
+  }
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
   onSubmit(event: any) {
+    this.isLoading = true;
     if((this.mark == 0)) return;
+    this.dialogRef.close();
 
     const updatedAssignment = this.data.assignment;
 
     this.assignmentsService
       .addNoteAssignment(updatedAssignment.results._id, this.mark, this.remark)
       .subscribe(response => {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate(['/teacher/assignments']);
+        }); 
         console.log(response);
-        this.dialogRef.close(updatedAssignment);
-        this.router.navigate(['/teacher/assignments']);
+        // this.router.navigate(['/teacher/assignments']);
     });
   }
 }
