@@ -11,6 +11,7 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/token';
 import { TitleService } from '../../shared/title.service';
+import { SubjectServiceService } from '../../shared/subject-service.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -34,9 +35,11 @@ export class AddAssignmentComponent implements OnInit{
   deadline = undefined;
   description ='';
   minDate = new Date();
+  subject:any;
 
   constructor(
     private assignmentsService: AssignmentsService,
+    private subjectService:SubjectServiceService,
     private router: Router,
     private titleService: TitleService
   ) {
@@ -53,6 +56,10 @@ ngOnInit(): void {
 
   if(this.userConnected) {
     this.titleService.changeTitle(`Add an assignment`);
+    this.subjectService.getRelatedTeacher(this.userConnected.id)
+  .subscribe((data) => {
+    this.subject = data;
+  })
   }
 }
   onSubmit(event: any) {
@@ -66,12 +73,15 @@ ngOnInit(): void {
     nouvelAssignment.title = this.title;
     nouvelAssignment.deadline = this.deadline;
     nouvelAssignment.description=this.description;
-    nouvelAssignment.author = this.userConnected._id;
+    nouvelAssignment.subject = this.subject;
+    console.log(nouvelAssignment);
+
     // on utilise le service pour directement ajouter
     // le nouvel assignment dans le tableau
     this.assignmentsService
       .addAssignment(nouvelAssignment)
       .subscribe((reponse) => {
+      console.log(nouvelAssignment);
         console.log(reponse);
        // On navigue pour afficher la liste des assignments
        // en utilisant le router de manière programmatique
