@@ -66,6 +66,23 @@ export class SubjectServiceService {
       );
     }
 
+    getRelatedTeacher(id: string|undefined): Observable<any> {
+      const url = `${this.server.getUrl()}/api/subject/teacher/${id}`;
+      console.log(url);
+      const bearerToken = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${bearerToken}`
+      });
+
+      return this.http.get<ApiResponse>(url, { headers }).pipe(
+        map((response) => response.data),
+        tap((data: Subject) => {
+
+        })
+      );
+    }
+
     updateService(subject: Subject){
       const url = `${this.server.getUrl()}/api/subjects`;
       const bearerToken = localStorage.getItem('token');

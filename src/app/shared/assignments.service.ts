@@ -212,7 +212,15 @@ export class AssignmentsService {
     this.logService.log(assignment.title, "ajouté");
     //return of("Assignment ajouté avec succès");
     const urlAssignment = `${this.server.getUrl()}/api/assignments`;
-    return this.http.post<Assignment>(urlAssignment, assignment);
+
+    const bearerToken = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${bearerToken}`,
+    });
+
+  
+    return this.http.post<Assignment>(urlAssignment, assignment, { headers });
   }
 
   // modifie un assignment
